@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Ukrainian -->
+    <string name="app_name">UA Castles</string>
+    <string name="title_activity_start">UA Castles</string>
+    <string name="title_activity_info"></string>
+    <string name="title_activity_places"></string>
+    <string name="title_activity_rout"></string>
+    <string name="title_activity_map"></string>
+    <string name="title_activity_add"></string>
+    <string name="title_activity_language"></string>
+    <string name="add_place_string">Клікніть сюди, щоб додати місце</string>
+    <string name="dialog_title_string">Не закривайте програму</string>
+    <string name="you_here_string">Ви тут</string>
+    <string name="no_inet_string">Інтернет з\"єдняння відсутнє</string>
+    <string name="load_string">Завантаження. Будь ласка, зачекайте..</string>
+    <string name="start_button_map">Карта</string>
+    <string name="start_button_places">Місця</string>
+    <string name="add_coord">Координати: </string>
+    <string name="add_name">Назва:</string>
+    <string name="add_descr">Опис:</string>
+    <string name="add_done">Готово</string>
+    <string name="add_thanks">Дякуємо!</string>
+    <!-- Polish -->
+    <string name="add_place_string_pl">Kliknij tutaj, aby dodać miejsce</string>
+    <string name="dialog_title_string_pl">Nie zamykaj programu</string>
+    <string name="you_here_string_pl">Jesteś tutaj</string>
+    <string name="no_inet_string_pl">Brak połączenia z Internetem</string>
+    <string name="load_string_pl">Pliki do pobrania. Proszę czekać ..</string>
+    <string name="start_button_map_pl">Mapa</string>
+    <string name="start_button_places_pl">Miejsca</string>
+    <string name="add_coord_pl">Współrzędne</string>
+    <string name="add_name_pl">Nazwa:</string>
+    <string name="add_descr_pl">Opis:</string>
+    <string name="add_done_pl">Wykończenie</string>
+    <string name="add_thanks_pl">Dziękuję!</string>
+    <!-- English -->
+    <string name="add_place_string_en">Click here to add new place</string>
+    <string name="dialog_title_string_en">Don\'t close application</string>
+    <string name="you_here_string_en">You are here</string>
+    <string name="no_inet_string_en">Problem with connection</string>
+    <string name="load_string_en">Loading. Please, wait..</string>
+    <string name="start_button_map_en">Map</string>
+    <string name="start_button_places_en">Places</string>
+    <string name="add_coord_en">Coordinates: </string>
+    <string name="add_name_en">Name:</string>
+    <string name="add_descr_en">Description:</string>
+    <string name="add_done_en">Done</string>
+    <string name="add_thanks_en">Thank You!</string>
+    <string name="title_activity_language_en">LanguageActivity</string>
+
+</resources>

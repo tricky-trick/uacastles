@@ -1,0 +1,13 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="CustomTheme">
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:windowBackground">@color/clue_theme</item>
+        <item name="android:colorBackground">@color/clue_theme</item>
+    </style>
+
+</resources>
