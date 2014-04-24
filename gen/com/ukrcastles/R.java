@@ -436,28 +436,28 @@ containing a value of this type.
         public static final int list_item=0x7f03000f;
     }
     public static final class string {
-        public static final int add_coord=0x7f06002a;
-        public static final int add_coord_en=0x7f060042;
-        public static final int add_coord_pl=0x7f060036;
-        public static final int add_descr=0x7f06002c;
-        public static final int add_descr_en=0x7f060044;
-        public static final int add_descr_pl=0x7f060038;
-        public static final int add_done=0x7f06002d;
-        public static final int add_done_en=0x7f060045;
-        public static final int add_done_pl=0x7f060039;
-        public static final int add_name=0x7f06002b;
-        public static final int add_name_en=0x7f060043;
-        public static final int add_name_pl=0x7f060037;
+        public static final int add_coord=0x7f06002b;
+        public static final int add_coord_en=0x7f060045;
+        public static final int add_coord_pl=0x7f060038;
+        public static final int add_descr=0x7f06002d;
+        public static final int add_descr_en=0x7f060047;
+        public static final int add_descr_pl=0x7f06003a;
+        public static final int add_done=0x7f06002e;
+        public static final int add_done_en=0x7f060048;
+        public static final int add_done_pl=0x7f06003b;
+        public static final int add_name=0x7f06002c;
+        public static final int add_name_en=0x7f060046;
+        public static final int add_name_pl=0x7f060039;
         public static final int add_place_string=0x7f060023;
         /**  English 
          */
-        public static final int add_place_string_en=0x7f06003b;
+        public static final int add_place_string_en=0x7f06003d;
         /**  Polish 
          */
-        public static final int add_place_string_pl=0x7f06002f;
-        public static final int add_thanks=0x7f06002e;
-        public static final int add_thanks_en=0x7f060046;
-        public static final int add_thanks_pl=0x7f06003a;
+        public static final int add_place_string_pl=0x7f060030;
+        public static final int add_thanks=0x7f06002f;
+        public static final int add_thanks_en=0x7f060049;
+        public static final int add_thanks_pl=0x7f06003c;
         /**  Ukrainian 
          */
         public static final int app_name=0x7f06001b;
@@ -556,56 +556,59 @@ containing a value of this type.
          */
         public static final int common_signin_button_text_long=0x7f060013;
         public static final int dialog_title_string=0x7f060024;
-        public static final int dialog_title_string_en=0x7f06003c;
-        public static final int dialog_title_string_pl=0x7f060030;
-        public static final int load_string=0x7f060027;
-        public static final int load_string_en=0x7f06003f;
-        public static final int load_string_pl=0x7f060033;
+        public static final int dialog_title_string_en=0x7f06003e;
+        public static final int dialog_title_string_pl=0x7f060031;
+        public static final int load_string=0x7f060028;
+        public static final int load_string_en=0x7f060042;
+        public static final int load_string_pl=0x7f060035;
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f06001a;
+        public static final int no_google_play_services=0x7f060027;
+        public static final int no_google_play_services_en=0x7f060041;
+        public static final int no_google_play_services_pl=0x7f060034;
         public static final int no_inet_string=0x7f060026;
-        public static final int no_inet_string_en=0x7f06003e;
-        public static final int no_inet_string_pl=0x7f060032;
-        public static final int pref_default_display_name=0x7f06004d;
-        public static final int pref_description_social_recommendations=0x7f06004b;
+        public static final int no_inet_string_en=0x7f060040;
+        public static final int no_inet_string_pl=0x7f060033;
+        public static final int pref_default_display_name=0x7f060050;
+        public static final int pref_description_social_recommendations=0x7f06004e;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f06004f;
+        public static final int pref_header_data_sync=0x7f060052;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f060049;
+        public static final int pref_header_general=0x7f06004c;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f060052;
-        public static final int pref_ringtone_silent=0x7f060055;
-        public static final int pref_title_add_friends_to_messages=0x7f06004e;
-        public static final int pref_title_display_name=0x7f06004c;
-        public static final int pref_title_new_message_notifications=0x7f060053;
-        public static final int pref_title_ringtone=0x7f060054;
-        public static final int pref_title_social_recommendations=0x7f06004a;
-        public static final int pref_title_sync_frequency=0x7f060050;
-        public static final int pref_title_system_sync_settings=0x7f060051;
-        public static final int pref_title_vibrate=0x7f060056;
-        public static final int start_button_map=0x7f060028;
-        public static final int start_button_map_en=0x7f060040;
-        public static final int start_button_map_pl=0x7f060034;
-        public static final int start_button_places=0x7f060029;
-        public static final int start_button_places_en=0x7f060041;
-        public static final int start_button_places_pl=0x7f060035;
+        public static final int pref_header_notifications=0x7f060055;
+        public static final int pref_ringtone_silent=0x7f060058;
+        public static final int pref_title_add_friends_to_messages=0x7f060051;
+        public static final int pref_title_display_name=0x7f06004f;
+        public static final int pref_title_new_message_notifications=0x7f060056;
+        public static final int pref_title_ringtone=0x7f060057;
+        public static final int pref_title_social_recommendations=0x7f06004d;
+        public static final int pref_title_sync_frequency=0x7f060053;
+        public static final int pref_title_system_sync_settings=0x7f060054;
+        public static final int pref_title_vibrate=0x7f060059;
+        public static final int start_button_map=0x7f060029;
+        public static final int start_button_map_en=0x7f060043;
+        public static final int start_button_map_pl=0x7f060036;
+        public static final int start_button_places=0x7f06002a;
+        public static final int start_button_places_en=0x7f060044;
+        public static final int start_button_places_pl=0x7f060037;
         public static final int title_activity_add=0x7f060021;
         public static final int title_activity_info=0x7f06001d;
         public static final int title_activity_language=0x7f060022;
-        public static final int title_activity_language_en=0x7f060047;
+        public static final int title_activity_language_en=0x7f06004a;
         public static final int title_activity_map=0x7f060020;
         public static final int title_activity_places=0x7f06001e;
         public static final int title_activity_rout=0x7f06001f;
-        public static final int title_activity_settings=0x7f060048;
+        public static final int title_activity_settings=0x7f06004b;
         public static final int title_activity_start=0x7f06001c;
         public static final int you_here_string=0x7f060025;
-        public static final int you_here_string_en=0x7f06003d;
-        public static final int you_here_string_pl=0x7f060031;
+        public static final int you_here_string_en=0x7f06003f;
+        public static final int you_here_string_pl=0x7f060032;
     }
     public static final class style {
         /** 

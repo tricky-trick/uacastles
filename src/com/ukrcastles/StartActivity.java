@@ -37,6 +37,9 @@ public class StartActivity extends Activity {
 		
 		buttonMap.setText(getResources().getIdentifier("start_button_map" + prefix, "string", this.getPackageName()));
 		buttonPlaces.setText(getResources().getIdentifier("start_button_places" + prefix, "string", this.getPackageName()));
+		
+		Intent i = new Intent( StartActivity.this, StartActivity.class);
+		i.putExtra("prefix", prefix);
 	}
 
 	public void startPlace(View v) {

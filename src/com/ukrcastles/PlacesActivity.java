@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.Result;
 import com.google.android.gms.maps.model.LatLng;
 
 import android.annotation.SuppressLint;
@@ -26,9 +29,11 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -45,16 +50,18 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 	ListView listView;
 	List<RowItem> rowItems;
 	String prefix;
+
 	private class AsyncMaps extends AsyncTask<String, Void, ArrayList<String>> {
 
 		ProgressDialog dialog;
 
 		@Override
 		protected void onPreExecute() {
-			prefix = getIntent().getStringExtra("prefix");
 			dialog = new ProgressDialog(PlacesActivity.this);
-			dialog.setTitle(getResources().getIdentifier("dialog_title_string" + prefix, "string", getPackageName()));
-			dialog.setMessage(getString(getResources().getIdentifier("load_string" + prefix, "string", getPackageName())));
+			dialog.setTitle(getResources().getIdentifier(
+					"dialog_title_string" + prefix, "string", getPackageName()));
+			dialog.setMessage(getString(getResources().getIdentifier(
+					"load_string" + prefix, "string", getPackageName())));
 			dialog.setIndeterminate(true);
 			dialog.setCancelable(false);
 			dialog.show();
@@ -99,8 +106,7 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 					}
 					db = myDbHelper.getWritableDatabase();
 					Cursor c = db.query("info_data", new String[] { "*" },
-							null, null, null,
-							null, null);
+							null, null, null, null, null);
 					float distance;
 					Map<String, Float> mapDist = new HashMap<>();
 					for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
@@ -127,8 +133,7 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 						distance = locMy.distanceTo(locTo);
 
 						mapDist.put(distance + ";" + image + ";" + coordinates
-								+ ";" + name + ";" + description,
-								distance);
+								+ ";" + name + ";" + description, distance);
 					}
 					List list = new LinkedList(mapDist.entrySet());
 					Collections.sort(list, new Comparator() {
@@ -182,7 +187,7 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 
 				}
 
-				String image = it.get(i).toString().split(";")[1];
+				String image = "ico_" + it.get(i).toString().split(";")[1];
 				String name = it.get(i).toString().split(";")[3];
 				String description = it.get(i).toString().split(";")[4];
 				RowItem item = new RowItem(PlacesActivity.this.getResources()
@@ -205,11 +210,23 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_places);
-		AsyncMaps aMaps = new AsyncMaps();
-		aMaps.execute();
-		ActionBar bar = getActionBar();
-		bar.setDisplayHomeAsUpEnabled(true);
+		prefix = getIntent().getStringExtra("prefix");
+		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
+			setContentView(R.layout.activity_places);
+			AsyncMaps aMaps = new AsyncMaps();
+			aMaps.execute();
+			ActionBar bar = getActionBar();
+			bar.setDisplayHomeAsUpEnabled(true);
+			Intent i = new Intent(PlacesActivity.this, PlacesActivity.class);
+			i.putExtra("prefix", prefix);
+		} else {
+			Toast toast = Toast.makeText(getApplicationContext(), getString(getResources().getIdentifier(
+					"no_google_play_services" + prefix, "string", getPackageName())),
+					Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+			onBackPressed();
+		}
 	}
 
 	@Override
@@ -220,21 +237,19 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 		i.putExtra("title", rowItems.get(position).getTitle());
 		startActivity(i);
 	}
-	
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{    
-	   switch (item.getItemId()) 
-	   {        
-	      case android.R.id.home:            
-	         Intent intent = new Intent(this, StartActivity.class);            
-	         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
-	         intent.putExtra("prefix", prefix);
-	         startActivity(intent);            
-	         return true;        
-	      default:            
-	         return super.onOptionsItemSelected(item);    
-	   }
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			Intent intent = new Intent(this, StartActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.putExtra("prefix", prefix);
+			startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 }

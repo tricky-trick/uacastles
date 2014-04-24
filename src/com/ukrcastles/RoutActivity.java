@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import org.w3c.dom.Document;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -54,10 +56,11 @@ public class RoutActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-			prefix = getIntent().getStringExtra("prefix");
 			dialog = new ProgressDialog(RoutActivity.this);
-			dialog.setTitle(getResources().getIdentifier("dialog_title_string" + prefix, "string", getPackageName()));
-			dialog.setMessage(getString(getResources().getIdentifier("load_string" + prefix, "string", getPackageName())));
+			dialog.setTitle(getResources().getIdentifier(
+					"dialog_title_string" + prefix, "string", getPackageName()));
+			dialog.setMessage(getString(getResources().getIdentifier(
+					"load_string" + prefix, "string", getPackageName())));
 			dialog.setIndeterminate(true);
 			dialog.setCancelable(false);
 			dialog.show();
@@ -162,9 +165,9 @@ public class RoutActivity extends Activity {
 					} else {
 						Toast toast = Toast.makeText(
 								getApplicationContext(),
-								getResources().getString(
-										R.string.no_inet_string),
-								Toast.LENGTH_SHORT);
+								getString(getResources().getIdentifier(
+										"no_inet_string" + prefix, "string",
+										getPackageName())), Toast.LENGTH_SHORT);
 						toast.setGravity(Gravity.CENTER, 0, 0);
 						toast.show();
 					}
@@ -213,18 +216,15 @@ public class RoutActivity extends Activity {
 				}
 			});
 
-			/*map.setOnMapClickListener(new OnMapClickListener() {
-
-				@Override
-				public void onMapClick(LatLng point) {
-					if (marker != null)
-						marker.remove();
-					marker = map.addMarker(new MarkerOptions()
-							.title(getResources().getString(
-									R.string.add_place_string)).position(point)
-							.draggable(true));
-				}
-			});*/
+			/*
+			 * map.setOnMapClickListener(new OnMapClickListener() {
+			 * 
+			 * @Override public void onMapClick(LatLng point) { if (marker !=
+			 * null) marker.remove(); marker = map.addMarker(new MarkerOptions()
+			 * .title(getResources().getString(
+			 * R.string.add_place_string)).position(point) .draggable(true)); }
+			 * });
+			 */
 		}
 	}
 
@@ -232,11 +232,26 @@ public class RoutActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_rout);
-		AsyncMaps maps = new AsyncMaps();
-		maps.execute();
-		ActionBar bar = getActionBar();
-		bar.setDisplayHomeAsUpEnabled(true);
+		prefix = getIntent().getStringExtra("prefix");
+		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
+			setContentView(R.layout.activity_rout);
+			AsyncMaps maps = new AsyncMaps();
+			maps.execute();
+			ActionBar bar = getActionBar();
+			bar.setDisplayHomeAsUpEnabled(true);
+
+			Intent i = new Intent(RoutActivity.this, RoutActivity.class);
+			i.putExtra("prefix", prefix);
+		} else {
+			Toast toast = Toast.makeText(
+					getApplicationContext(),
+					getString(getResources().getIdentifier(
+							"no_google_play_services" + prefix, "string",
+							getPackageName())), Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+			onBackPressed();
+		}
 	}
 
 	public boolean isNetworkAvailable() {
@@ -245,20 +260,18 @@ public class RoutActivity extends Activity {
 				.getActiveNetworkInfo();
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
-	
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{    
-	   switch (item.getItemId()) 
-	   {        
-	      case android.R.id.home:            
-	         Intent intent = new Intent(this, StartActivity.class);            
-	         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
-	         intent.putExtra("prefix", prefix);
-	         startActivity(intent);            
-	         return true;        
-	      default:            
-	         return super.onOptionsItemSelected(item);    
-	   }
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			Intent intent = new Intent(this, StartActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.putExtra("prefix", prefix);
+			startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

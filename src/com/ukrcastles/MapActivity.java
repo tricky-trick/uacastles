@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
@@ -34,8 +36,10 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 public class MapActivity extends Activity {
 
@@ -69,7 +73,9 @@ public class MapActivity extends Activity {
 			myCoord = new LatLng(Double.parseDouble(stringLatitude),
 					Double.parseDouble(stringLongitude));
 			map.addMarker(new MarkerOptions()
-					.title(getString(getResources().getIdentifier("you_here_string" + prefix, "string", getPackageName())))
+					.title(getString(getResources().getIdentifier(
+							"you_here_string" + prefix, "string",
+							getPackageName())))
 					.snippet(
 							country + ", " + city + "\n" + addressLine + "\n"
 									+ stringLatitude + ", " + stringLongitude)
@@ -185,10 +191,11 @@ public class MapActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-			prefix = getIntent().getStringExtra("prefix");
 			dialog = new ProgressDialog(MapActivity.this);
-			dialog.setTitle(getResources().getIdentifier("dialog_title_string" + prefix, "string", getPackageName()));
-			dialog.setMessage(getString(getResources().getIdentifier("load_string" + prefix, "string", getPackageName())));
+			dialog.setTitle(getResources().getIdentifier(
+					"dialog_title_string" + prefix, "string", getPackageName()));
+			dialog.setMessage(getString(getResources().getIdentifier(
+					"load_string" + prefix, "string", getPackageName())));
 			dialog.setIndeterminate(true);
 			dialog.setCancelable(false);
 			dialog.show();
@@ -225,7 +232,9 @@ public class MapActivity extends Activity {
 				@Override
 				public void onInfoWindowClick(Marker marker) {
 					String title = marker.getTitle();
-					if (title.equals(getString(getResources().getIdentifier("add_place_string" + prefix, "string", getPackageName())))) {
+					if (title.equals(getString(getResources().getIdentifier(
+							"add_place_string" + prefix, "string",
+							getPackageName())))) {
 						Intent intent = new Intent(MapActivity.this,
 								AddActivity.class);
 						intent.putExtra(
@@ -235,7 +244,9 @@ public class MapActivity extends Activity {
 						intent.putExtra("prefix", prefix);
 						startActivity(intent);
 					} else {
-						if (title.equals(getString(getResources().getIdentifier("you_here_string" + prefix, "string", getPackageName())))) {
+						if (title.equals(getString(getResources()
+								.getIdentifier("you_here_string" + prefix,
+										"string", getPackageName())))) {
 						} else {
 							Intent intent = new Intent(MapActivity.this,
 									InfoActivity.class);
@@ -247,17 +258,15 @@ public class MapActivity extends Activity {
 				}
 			});
 
-			/*map.setOnMapClickListener(new OnMapClickListener() {
-
-				@Override
-				public void onMapClick(LatLng point) {
-					if (marker != null)
-						marker.remove();
-					marker = map.addMarker(new MarkerOptions()
-							.title(getString(getResources().getIdentifier("add_place_string" + prefix, "string", getPackageName()))).position(point)
-							.draggable(true));
-				}
-			});*/
+			/*
+			 * map.setOnMapClickListener(new OnMapClickListener() {
+			 * 
+			 * @Override public void onMapClick(LatLng point) { if (marker !=
+			 * null) marker.remove(); marker = map.addMarker(new MarkerOptions()
+			 * .title(getString(getResources().getIdentifier("add_place_string"
+			 * + prefix, "string", getPackageName()))).position(point)
+			 * .draggable(true)); } });
+			 */
 		}
 	}
 
@@ -265,36 +274,48 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		сHandler.post(new Runnable() {
+		prefix = getIntent().getStringExtra("prefix");
+		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
+			сHandler.post(new Runnable() {
 
-			@Override
-			public void run() {
-				setContentView(R.layout.activity_map);
+				@Override
+				public void run() {
+					setContentView(R.layout.activity_map);
 
-			}
-		});
+				}
+			});
+			AsyncMaps aMaps = new AsyncMaps();
+			aMaps.execute();
 
-		AsyncMaps aMaps = new AsyncMaps();
-		aMaps.execute();
-		
-		ActionBar bar = getActionBar();
-		bar.setDisplayHomeAsUpEnabled(true);
+			ActionBar bar = getActionBar();
+			bar.setDisplayHomeAsUpEnabled(true);
+
+			Intent i = new Intent(MapActivity.this, MapActivity.class);
+			i.putExtra("prefix", prefix);
+		} else {
+			Toast toast = Toast.makeText(
+					getApplicationContext(),
+					getString(getResources().getIdentifier(
+							"no_google_play_services" + prefix, "string",
+							getPackageName())), Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+			onBackPressed();
+		}
 
 	}
-	
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{    
-	   switch (item.getItemId()) 
-	   {        
-	      case android.R.id.home:            
-	         Intent intent = new Intent(this, StartActivity.class);            
-	         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
-	         intent.putExtra("prefix", prefix);
-	         startActivity(intent);            
-	         return true;        
-	      default:            
-	         return super.onOptionsItemSelected(item);    
-	   }
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			Intent intent = new Intent(this, StartActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.putExtra("prefix", prefix);
+			startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

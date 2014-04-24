@@ -14,6 +14,7 @@
     <string name="dialog_title_string">Не закривайте програму</string>
     <string name="you_here_string">Ви тут</string>
     <string name="no_inet_string">Інтернет з\"єдняння відсутнє</string>
+    <string name="no_google_play_services">Google Play Services є відсутнім</string>
     <string name="load_string">Завантаження. Будь ласка, зачекайте..</string>
     <string name="start_button_map">Карта</string>
     <string name="start_button_places">Місця</string>
@@ -27,6 +28,7 @@
     <string name="dialog_title_string_pl">Nie zamykaj programu</string>
     <string name="you_here_string_pl">Jesteś tutaj</string>
     <string name="no_inet_string_pl">Brak połączenia z Internetem</string>
+    <string name="no_google_play_services_pl">Brak połączenia z Google Play Services</string>
     <string name="load_string_pl">Pliki do pobrania. Proszę czekać ..</string>
     <string name="start_button_map_pl">Mapa</string>
     <string name="start_button_places_pl">Miejsca</string>
@@ -40,6 +42,7 @@
     <string name="dialog_title_string_en">Don\'t close application</string>
     <string name="you_here_string_en">You are here</string>
     <string name="no_inet_string_en">Problem with connection</string>
+    <string name="no_google_play_services_en">Google Play Services is absent</string>
     <string name="load_string_en">Loading. Please, wait..</string>
     <string name="start_button_map_en">Map</string>
     <string name="start_button_places_en">Places</string>
