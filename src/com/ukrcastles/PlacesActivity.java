@@ -113,11 +113,8 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 
 						String coordinates = c.getString(c
 								.getColumnIndex("coordinates"));
-						String name = c.getString(c.getColumnIndex("name"))
+						String name = c.getString(c.getColumnIndex("name" + prefix))
 								.replace(";", ",");
-						String description = c.getString(
-								c.getColumnIndex("description")).replace(";",
-								",");
 						String image = c.getString(c.getColumnIndex("image"));
 
 						LatLng coord = new LatLng(Double
@@ -133,7 +130,7 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 						distance = locMy.distanceTo(locTo);
 
 						mapDist.put(distance + ";" + image + ";" + coordinates
-								+ ";" + name + ";" + description, distance);
+								+ ";" + name, distance);
 					}
 					List list = new LinkedList(mapDist.entrySet());
 					Collections.sort(list, new Comparator() {
@@ -189,11 +186,9 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 
 				String image = "ico_" + it.get(i).toString().split(";")[1];
 				String name = it.get(i).toString().split(";")[3];
-				String description = it.get(i).toString().split(";")[4];
 				RowItem item = new RowItem(PlacesActivity.this.getResources()
 						.getIdentifier("drawable/" + image, null,
-								PlacesActivity.this.getPackageName()), name,
-						description, distance);
+								PlacesActivity.this.getPackageName()), name, distance);
 				rowItems.add(item);
 			}
 			listView = (ListView) findViewById(R.id.list);

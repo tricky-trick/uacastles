@@ -134,10 +134,10 @@ public class MapActivity extends Activity {
 
 						String coordinates = c.getString(c
 								.getColumnIndex("coordinates"));
-						String name = c.getString(c.getColumnIndex("name"))
+						String name = c.getString(c.getColumnIndex("name" + prefix))
 								.replace(";", ",");
 						String description = c.getString(
-								c.getColumnIndex("description")).replace(";",
+								c.getColumnIndex("description" + prefix)).replace(";",
 								",");
 						String image = c.getString(c.getColumnIndex("image"));
 

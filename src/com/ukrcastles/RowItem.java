@@ -6,7 +6,7 @@ public class RowItem {
     private String desc;
     private String dist;
  
-    public RowItem(int imageId, String title, String desc, String dist) {
+    public RowItem(int imageId, String title, String dist) {
         this.imageId = imageId;
         this.title = title;
         this.desc = desc;

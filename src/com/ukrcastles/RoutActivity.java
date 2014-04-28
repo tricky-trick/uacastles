@@ -133,7 +133,7 @@ public class RoutActivity extends Activity {
 					}
 					db = myDbHelper.getWritableDatabase();
 					Cursor c = db.query("info_data", new String[] { "*" },
-							"name LIKE '" + title + "%'", null, null, null,
+							"name" + prefix + " LIKE '" + title + "%'", null, null, null,
 							null);
 					for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
 

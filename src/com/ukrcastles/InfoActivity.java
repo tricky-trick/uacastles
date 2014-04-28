@@ -65,10 +65,10 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 			String description = "";
 			String audioFile = "";
 			Cursor c = db.query("info_data", new String[] { "*" },
-					"name LIKE '" + title + "%'", null, null, null, null);
+					"name" + prefix + " LIKE '" + title + "%'", null, null, null, null);
 			for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
 				image = c.getString(c.getColumnIndex("image"));
-				description = c.getString(c.getColumnIndex("description"));
+				description = c.getString(c.getColumnIndex("description" + prefix));
 				audioFile = c.getString(c.getColumnIndex("audio")) + ".mp3";
 			}
 			if (audioFile.contains("null"))
