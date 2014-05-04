@@ -10,7 +10,7 @@
 
         <ImageButton
             android:id="@+id/imageButtonUa"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="100dp"
@@ -23,7 +23,7 @@
 
         <ImageButton
             android:id="@+id/imageButtonPl"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="150dp"
             android:layout_below="@+id/imageButtonUa"
             android:layout_centerHorizontal="true"
@@ -37,7 +37,7 @@
 
         <ImageButton
             android:id="@+id/imageButtonEn"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="150dp"
             android:layout_below="@+id/imageButtonPl"
             android:layout_centerHorizontal="true"

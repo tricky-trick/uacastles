@@ -14,7 +14,6 @@ import java.util.Map.Entry;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.Result;
 import com.google.android.gms.maps.model.LatLng;
 
 import android.annotation.SuppressLint;

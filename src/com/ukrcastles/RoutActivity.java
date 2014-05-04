@@ -9,6 +9,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
@@ -188,9 +189,38 @@ public class RoutActivity extends Activity {
 			db.close();
 			dialog.dismiss();
 			prefix = getIntent().getStringExtra("prefix");
-			map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+//			map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+//				@Override
+//				public void onInfoWindowClick(Marker marker) {
+//					String title = marker.getTitle();
+//					if (title.equals(getResources().getString(
+//							R.string.add_place_string))) {
+//						Intent intent = new Intent(RoutActivity.this,
+//								AddActivity.class);
+//						intent.putExtra(
+//								"position",
+//								marker.getPosition().latitude + ","
+//										+ marker.getPosition().longitude);
+//						intent.putExtra("prefix", prefix);
+//						startActivity(intent);
+//					} else {
+//						if (title.equals(getResources().getString(
+//								R.string.you_here_string))) {
+//						} else {
+//							Intent intent = new Intent(RoutActivity.this,
+//									InfoActivity.class);
+//							intent.putExtra("title", title);
+//							intent.putExtra("prefix", prefix);
+//							startActivity(intent);
+//						}
+//					}
+//				}
+//			});
+			
+			map.setOnMarkerClickListener(new OnMarkerClickListener() {
+				
 				@Override
-				public void onInfoWindowClick(Marker marker) {
+				public boolean onMarkerClick(Marker marker) {
 					String title = marker.getTitle();
 					if (title.equals(getResources().getString(
 							R.string.add_place_string))) {
@@ -213,6 +243,7 @@ public class RoutActivity extends Activity {
 							startActivity(intent);
 						}
 					}
+					return true;
 				}
 			});
 

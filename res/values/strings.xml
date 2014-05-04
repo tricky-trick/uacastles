@@ -23,6 +23,8 @@
     <string name="add_descr">Опис:</string>
     <string name="add_done">Готово</string>
     <string name="add_thanks">Дякуємо!</string>
+    <string name="description_info">Інформація взята з сайту www.7chudes.in.ua</string>
+    <string name="touch_here">Торкніться сюди</string>
     <!-- Polish -->
     <string name="add_place_string_pl">Kliknij tutaj, aby dodać miejsce</string>
     <string name="dialog_title_string_pl">Nie zamykaj programu</string>
@@ -37,6 +39,8 @@
     <string name="add_descr_pl">Opis:</string>
     <string name="add_done_pl">Wykończenie</string>
     <string name="add_thanks_pl">Dziękuję!</string>
+    <string name="description_info_pl">Informacja pochodzi ze www.7chudes.in.ua miejscu</string>
+    <string name="touch_here_pl">Dotknij tutaj</string>
     <!-- English -->
     <string name="add_place_string_en">Click here to add new place</string>
     <string name="dialog_title_string_en">Don\'t close application</string>
@@ -52,5 +56,6 @@
     <string name="add_done_en">Done</string>
     <string name="add_thanks_en">Thank You!</string>
     <string name="title_activity_language_en">LanguageActivity</string>
-
+	<string name="description_info_en">Information taken from the site www.7chudes.in.ua</string>
+	<string name="touch_here_en">Touch here</string>
 </resources>

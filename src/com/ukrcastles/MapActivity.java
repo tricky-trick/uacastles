@@ -134,11 +134,12 @@ public class MapActivity extends Activity {
 
 						String coordinates = c.getString(c
 								.getColumnIndex("coordinates"));
-						String name = c.getString(c.getColumnIndex("name" + prefix))
-								.replace(";", ",");
-						String description = c.getString(
-								c.getColumnIndex("description" + prefix)).replace(";",
+						String name = c.getString(
+								c.getColumnIndex("name" + prefix)).replace(";",
 								",");
+						String description = c.getString(
+								c.getColumnIndex("description" + prefix))
+								.replace(";", ",");
 						String image = c.getString(c.getColumnIndex("image"));
 
 						LatLng coord = new LatLng(Double
@@ -216,7 +217,14 @@ public class MapActivity extends Activity {
 
 				map.addMarker(new MarkerOptions()
 						.title(name)
-						.snippet(description.substring(0, 20) + "...")
+						.snippet(
+								description.substring(0, 20)
+										+ "...\n("
+										+ getString(getResources()
+												.getIdentifier(
+														"touch_here" + prefix,
+														"string",
+														getPackageName())) + ")")
 						.icon(BitmapDescriptorFactory
 								.fromResource(getResources().getIdentifier(
 										"drawable/ico_" + image, null,
