@@ -46,6 +46,7 @@ public class MapActivity extends Activity {
 	GoogleMap map;
 	AutoCompleteTextView autoComplete;
 	private Handler mHandler = new Handler();
+	private Handler spHandler = new Handler();
 	Handler сHandler = new Handler();
 	DataBaseHelper myDbHelper;
 	LatLng myCoord = null;
@@ -192,14 +193,21 @@ public class MapActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(MapActivity.this);
-			dialog.setTitle(getResources().getIdentifier(
-					"dialog_title_string" + prefix, "string", getPackageName()));
-			dialog.setMessage(getString(getResources().getIdentifier(
-					"load_string" + prefix, "string", getPackageName())));
-			dialog.setIndeterminate(true);
-			dialog.setCancelable(false);
-			dialog.show();
+			spHandler.post(new Runnable() {
+				@SuppressLint("NewApi")
+				@SuppressWarnings({ "unchecked", "rawtypes" })
+				public void run() {
+					dialog = new ProgressDialog(MapActivity.this);
+					dialog.setTitle(getResources().getIdentifier(
+							"dialog_title_string" + prefix, "string",
+							getPackageName()));
+					dialog.setMessage(getString(getResources().getIdentifier(
+							"load_string" + prefix, "string", getPackageName())));
+					dialog.setIndeterminate(true);
+					dialog.setCancelable(false);
+					dialog.show();
+				}
+			});
 		}
 
 		@Override
@@ -224,7 +232,8 @@ public class MapActivity extends Activity {
 												.getIdentifier(
 														"touch_here" + prefix,
 														"string",
-														getPackageName())) + ")")
+														getPackageName()))
+										+ ")")
 						.icon(BitmapDescriptorFactory
 								.fromResource(getResources().getIdentifier(
 										"drawable/ico_" + image, null,

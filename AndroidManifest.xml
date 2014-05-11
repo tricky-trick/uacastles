@@ -28,8 +28,8 @@
 
         <activity
             android:name="com.ukrcastles.InfoActivity"
-            android:label="@string/title_activity_info" 
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_info"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.ukrcastles.PlacesActivity"
@@ -52,7 +52,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.ukrcastles.LanguageActivity"
+            android:name="com.ukrcastles.MainActivity"
             android:label="@string/title_activity_language"
             android:screenOrientation="portrait" >
             <intent-filter android:label="@string/app_name" >
@@ -60,6 +60,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ukrcastles.BrowserActivity"
+            android:label="@string/title_activity_browser" >
         </activity>
     </application>
 

@@ -48,6 +48,7 @@ public class RoutActivity extends Activity {
 	GPSTracker gpsTracker;
 	GoogleMap map;
 	private Handler mHandler = new Handler();
+	private Handler spHandler = new Handler();
 	String title;
 	Marker marker;
 	String prefix;
@@ -57,14 +58,21 @@ public class RoutActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(RoutActivity.this);
-			dialog.setTitle(getResources().getIdentifier(
-					"dialog_title_string" + prefix, "string", getPackageName()));
-			dialog.setMessage(getString(getResources().getIdentifier(
-					"load_string" + prefix, "string", getPackageName())));
-			dialog.setIndeterminate(true);
-			dialog.setCancelable(false);
-			dialog.show();
+			spHandler.post(new Runnable() {
+				@SuppressLint("NewApi")
+				@SuppressWarnings({ "unchecked", "rawtypes" })
+				public void run() {
+					dialog = new ProgressDialog(RoutActivity.this);
+					dialog.setTitle(getResources().getIdentifier(
+							"dialog_title_string" + prefix, "string",
+							getPackageName()));
+					dialog.setMessage(getString(getResources().getIdentifier(
+							"load_string" + prefix, "string", getPackageName())));
+					dialog.setIndeterminate(true);
+					dialog.setCancelable(false);
+					dialog.show();
+				}
+			});
 		}
 
 		@Override
@@ -134,8 +142,8 @@ public class RoutActivity extends Activity {
 					}
 					db = myDbHelper.getWritableDatabase();
 					Cursor c = db.query("info_data", new String[] { "*" },
-							"name" + prefix + " LIKE '" + title + "%'", null, null, null,
-							null);
+							"name" + prefix + " LIKE \"" + title + "%\"", null,
+							null, null, null);
 					for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
 
 						coordinates = c.getString(c
@@ -189,36 +197,37 @@ public class RoutActivity extends Activity {
 			db.close();
 			dialog.dismiss();
 			prefix = getIntent().getStringExtra("prefix");
-//			map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
-//				@Override
-//				public void onInfoWindowClick(Marker marker) {
-//					String title = marker.getTitle();
-//					if (title.equals(getResources().getString(
-//							R.string.add_place_string))) {
-//						Intent intent = new Intent(RoutActivity.this,
-//								AddActivity.class);
-//						intent.putExtra(
-//								"position",
-//								marker.getPosition().latitude + ","
-//										+ marker.getPosition().longitude);
-//						intent.putExtra("prefix", prefix);
-//						startActivity(intent);
-//					} else {
-//						if (title.equals(getResources().getString(
-//								R.string.you_here_string))) {
-//						} else {
-//							Intent intent = new Intent(RoutActivity.this,
-//									InfoActivity.class);
-//							intent.putExtra("title", title);
-//							intent.putExtra("prefix", prefix);
-//							startActivity(intent);
-//						}
-//					}
-//				}
-//			});
-			
+			// map.setOnInfoWindowClickListener(new OnInfoWindowClickListener()
+			// {
+			// @Override
+			// public void onInfoWindowClick(Marker marker) {
+			// String title = marker.getTitle();
+			// if (title.equals(getResources().getString(
+			// R.string.add_place_string))) {
+			// Intent intent = new Intent(RoutActivity.this,
+			// AddActivity.class);
+			// intent.putExtra(
+			// "position",
+			// marker.getPosition().latitude + ","
+			// + marker.getPosition().longitude);
+			// intent.putExtra("prefix", prefix);
+			// startActivity(intent);
+			// } else {
+			// if (title.equals(getResources().getString(
+			// R.string.you_here_string))) {
+			// } else {
+			// Intent intent = new Intent(RoutActivity.this,
+			// InfoActivity.class);
+			// intent.putExtra("title", title);
+			// intent.putExtra("prefix", prefix);
+			// startActivity(intent);
+			// }
+			// }
+			// }
+			// });
+
 			map.setOnMarkerClickListener(new OnMarkerClickListener() {
-				
+
 				@Override
 				public boolean onMarkerClick(Marker marker) {
 					String title = marker.getTitle();
