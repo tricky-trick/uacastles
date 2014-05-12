@@ -74,7 +74,8 @@
             android:layout_below="@+id/textView2"
             android:layout_centerHorizontal="true"
             android:autoLink="web"
-            android:textSize="20sp" />
+            android:textSize="20sp" 
+            android:textColor="#ffffff"/>
     </RelativeLayout>
 
 </ScrollView>

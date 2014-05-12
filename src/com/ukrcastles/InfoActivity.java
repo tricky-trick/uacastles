@@ -70,9 +70,9 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 			String image = "";
 			String description = "";
 			String audioFile = "";
-			Cursor c = db
-					.query("info_data", new String[] { "*" }, "name" + prefix
-							+ " LIKE \"" + title + "%\"", null, null, null, null);
+			Cursor c = db.query("info_data", new String[] { "*" }, "name"
+					+ prefix + " LIKE \"" + title + "%\"", null, null, null,
+					null);
 			for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
 				image = c.getString(c.getColumnIndex("image"));
 				description = c.getString(c.getColumnIndex("description"
@@ -83,13 +83,15 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 				audioFile = "audio.mp3";
 			imageView = (ImageView) findViewById(R.id.imageView1);
 			textTitle = (TextView) findViewById(R.id.textView1);
-			SpannableString spanString = new SpannableString("("
-					+ getString(getResources().getIdentifier(
+			SpannableString spanString = new SpannableString(
+					getString(getResources().getIdentifier(
 							"description_info" + prefix, "string",
-							getPackageName())) + ")");
+							getPackageName())));
 			spanString.setSpan(new UnderlineSpan(), 0, spanString.length(), 0);
-			spanString.setSpan(new StyleSpan(Typeface.BOLD), 0, spanString.length(), 0);
-			spanString.setSpan(new StyleSpan(Typeface.ITALIC), 0, spanString.length(), 0);
+			spanString.setSpan(new StyleSpan(Typeface.BOLD), 0,
+					spanString.length(), 0);
+			spanString.setSpan(new StyleSpan(Typeface.ITALIC), 0,
+					spanString.length(), 0);
 			textUri = (TextView) findViewById(R.id.textView3);
 			// buttonPlay = (ImageButton) findViewById(R.id.button1);
 			// buttonStop = (ImageButton) findViewById(R.id.button2);
@@ -101,7 +103,7 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 			textTitle.setText(title);
 			textDescription.setText(description + "\n\n");
 			textUri.setText(spanString);
-			
+
 			mMediaPlayer = new MediaPlayer();
 			mMediaController = new MediaController(this);
 			mMediaController.setMediaPlayer(InfoActivity.this);

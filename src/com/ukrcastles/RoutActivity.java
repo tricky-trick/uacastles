@@ -35,6 +35,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class RoutActivity extends Activity {
 	String title;
 	Marker marker;
 	String prefix;
+	private static final int NEW_MENU_ID = Menu.FIRST+2;
 
 	private class AsyncMaps extends AsyncTask<String, Void, Integer> {
 		ProgressDialog dialog;
@@ -300,6 +302,15 @@ public class RoutActivity extends Activity {
 				.getActiveNetworkInfo();
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		menu.add(0, NEW_MENU_ID, 0, getString(getResources().getIdentifier(
+				"change_view" + prefix, "string",
+				getPackageName()))); 
+		return true;
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -310,6 +321,13 @@ public class RoutActivity extends Activity {
 			intent.putExtra("prefix", prefix);
 			startActivity(intent);
 			return true;
+		case NEW_MENU_ID: {
+			if (map.getMapType() == GoogleMap.MAP_TYPE_NORMAL)
+				map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+			else if (map.getMapType() == GoogleMap.MAP_TYPE_HYBRID)
+				map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+			return true;
+		}
 		default:
 			return super.onOptionsItemSelected(item);
 		}

@@ -1,8 +1,11 @@
 package com.ukrcastles;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,29 +20,36 @@ public class StartActivity extends Activity {
 	Button buttonMap;
 	Button buttonPlaces;
 	String prefix;
+	private Handler mHandler = new Handler();
+	
+	private class AsyncStartActivity extends AsyncTask<Void, Void, Void> {
 
+		@Override
+		protected Void doInBackground(Void... params) {
+			mHandler.post(new Runnable() {
+				@SuppressLint("NewApi")
+				public void run() {
+					setContentView(R.layout.activity_start);
+					buttonMap = (Button) findViewById(R.id.localmap);
+					buttonPlaces = (Button) findViewById(R.id.place);
+					prefix = getIntent().getStringExtra("prefix");
+					
+					buttonMap.setText(getResources().getIdentifier("start_button_map" + prefix, "string", getPackageName()));
+					buttonPlaces.setText(getResources().getIdentifier("start_button_places" + prefix, "string", getPackageName()));
+					
+					Intent i = new Intent( StartActivity.this, StartActivity.class);
+					i.putExtra("prefix", prefix);
+				}
+			});
+			return null;
+		}
+		
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_start);
-		buttonMap = (Button) findViewById(R.id.localmap);
-		buttonPlaces = (Button) findViewById(R.id.place);
-		if (savedInstanceState == null) {
-		    Bundle extras = getIntent().getExtras();
-		    if(extras == null) {
-		        prefix= "";
-		    } else {
-		        prefix= extras.getString("prefix");
-		    }
-		} else {
-		    prefix= (String) savedInstanceState.getSerializable("prefix");
-		}
-		
-		buttonMap.setText(getResources().getIdentifier("start_button_map" + prefix, "string", this.getPackageName()));
-		buttonPlaces.setText(getResources().getIdentifier("start_button_places" + prefix, "string", this.getPackageName()));
-		
-		Intent i = new Intent( StartActivity.this, StartActivity.class);
-		i.putExtra("prefix", prefix);
+		AsyncStartActivity start = new AsyncStartActivity();
+		start.execute();
 	}
 
 	public void startPlace(View v) {
