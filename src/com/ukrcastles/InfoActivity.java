@@ -22,6 +22,7 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -29,6 +30,7 @@ import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 @SuppressLint("NewApi")
 public class InfoActivity extends Activity implements MediaPlayerControl {
@@ -48,7 +50,8 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		prefix = getIntent().getStringExtra("prefix");
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
 			setContentView(R.layout.activity_info);
 			ActionBar bar = getActionBar();
@@ -123,8 +126,6 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 			 * catch (IOException e) { Log.e("PlayAudioDemo",
 			 * "Could not open file " + audioFile + " for playback.", e); }
 			 */
-			Intent i = new Intent(InfoActivity.this, InfoActivity.class);
-			i.putExtra("prefix", prefix);
 		} else {
 			Toast toast = Toast.makeText(
 					getApplicationContext(),
@@ -223,7 +224,6 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 	public void goToClick(View v) {
 		Intent i = new Intent(InfoActivity.this, RoutActivity.class);
 		i.putExtra("title", textTitle.getText());
-		i.putExtra("prefix", prefix);
 		startActivity(i);
 	}
 
@@ -233,7 +233,6 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 		case android.R.id.home:
 			Intent intent = new Intent(this, StartActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			intent.putExtra("prefix", prefix);
 			startActivity(intent);
 			return true;
 		default:

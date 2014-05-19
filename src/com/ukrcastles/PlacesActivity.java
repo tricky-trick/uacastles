@@ -21,6 +21,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,6 +29,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -204,7 +206,8 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		prefix = getIntent().getStringExtra("prefix");
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
 			setContentView(R.layout.activity_places);
 			AsyncMaps aMaps = new AsyncMaps();
@@ -227,7 +230,6 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		Intent i = new Intent(PlacesActivity.this, RoutActivity.class);
-		i.putExtra("prefix", prefix);
 		i.putExtra("title", rowItems.get(position).getTitle());
 		startActivity(i);
 	}
@@ -238,7 +240,6 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 		case android.R.id.home:
 			Intent intent = new Intent(this, StartActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			intent.putExtra("prefix", prefix);
 			startActivity(intent);
 			return true;
 		default:

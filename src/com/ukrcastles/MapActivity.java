@@ -27,7 +27,9 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -35,6 +37,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -160,7 +163,7 @@ public class MapActivity extends Activity {
 						// coord.longitude), distance);
 
 						mapDist.put(coordinates + ";" + name + ";"
-								+ description + ";" + image, distance);
+								+ description + ";" + image + ";" + distance, distance);
 					}
 
 					List list = new LinkedList(mapDist.entrySet());
@@ -220,12 +223,30 @@ public class MapActivity extends Activity {
 				String name = it.get(i).toString().split(";")[1];
 				String description = it.get(i).toString().split(";")[2];
 				String image = it.get(i).toString().split(";")[3];
+				String distance = it.get(i).toString().split(";")[4];
+				int distanceMeter = Math.round(Float.parseFloat(distance) * 100) / 100;
+				if (distanceMeter < 1000)
+					distance = String.valueOf(distanceMeter) + " m";
+				else {
+					float distanceKilometer = Float.valueOf(distanceMeter);
+					distanceKilometer = distanceKilometer / 1000;
+					distance = String.valueOf(distanceKilometer);
+					distance = distance.replace(".", ",");
+					if (distance.split(",")[1].length() >= 3)
+						distance = distance.split(",")[0] + ","
+								+ distance.split(",")[1].substring(0, 2)
+								+ " km";
+					else {
+						distance = distance + " km";
+					}
+
+				}
 				LatLng coord = new LatLng(Double.parseDouble(coordinates
 						.split(",")[0]), Double.parseDouble(coordinates
 						.split(",")[1]));
 
 				map.addMarker(new MarkerOptions()
-						.title(name)
+						.title(name + " - " + distance)
 						.snippet(
 								description.substring(0, 20)
 										+ "...\n("
@@ -245,7 +266,6 @@ public class MapActivity extends Activity {
 
 			db.close();
 			dialog.dismiss();
-			prefix = getIntent().getStringExtra("prefix");
 			map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 				@Override
 				public void onInfoWindowClick(Marker marker) {
@@ -259,7 +279,6 @@ public class MapActivity extends Activity {
 								"position",
 								marker.getPosition().latitude + ","
 										+ marker.getPosition().longitude);
-						intent.putExtra("prefix", prefix);
 						startActivity(intent);
 					} else {
 						if (title.equals(getString(getResources()
@@ -268,8 +287,7 @@ public class MapActivity extends Activity {
 						} else {
 							Intent intent = new Intent(MapActivity.this,
 									InfoActivity.class);
-							intent.putExtra("title", title);
-							intent.putExtra("prefix", prefix);
+							intent.putExtra("title", title.split("-")[0].trim());
 							startActivity(intent);
 						}
 					}
@@ -292,7 +310,8 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		prefix = getIntent().getStringExtra("prefix");
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
 			сHandler.post(new Runnable() {
 
@@ -308,8 +327,6 @@ public class MapActivity extends Activity {
 			ActionBar bar = getActionBar();
 			bar.setDisplayHomeAsUpEnabled(true);
 
-			Intent i = new Intent(MapActivity.this, MapActivity.class);
-			i.putExtra("prefix", prefix);
 		} else {
 			Toast toast = Toast.makeText(
 					getApplicationContext(),
@@ -338,7 +355,6 @@ public class MapActivity extends Activity {
 		case android.R.id.home:
 			Intent intent = new Intent(this, StartActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			intent.putExtra("prefix", prefix);
 			startActivity(intent);
 			return true;
 		case NEW_MENU_ID: {

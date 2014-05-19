@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -34,6 +35,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -129,8 +131,9 @@ public class RoutActivity extends Activity {
 								Double.parseDouble(stringLatitude), Double
 										.parseDouble(stringLongitude));
 						map.addMarker(new MarkerOptions()
-								.title(getResources().getString(
-										R.string.you_here_string))
+								.title(getString(getResources().getIdentifier(
+										"you_here_string" + prefix, "string",
+										getPackageName())))
 								.snippet(
 										country + ", " + city + "\n"
 												+ addressLine + "\n"
@@ -198,7 +201,6 @@ public class RoutActivity extends Activity {
 					.position(myNearCoord));
 			db.close();
 			dialog.dismiss();
-			prefix = getIntent().getStringExtra("prefix");
 			// map.setOnInfoWindowClickListener(new OnInfoWindowClickListener()
 			// {
 			// @Override
@@ -233,24 +235,24 @@ public class RoutActivity extends Activity {
 				@Override
 				public boolean onMarkerClick(Marker marker) {
 					String title = marker.getTitle();
-					if (title.equals(getResources().getString(
-							R.string.add_place_string))) {
+					if (title.equals(getResources().getIdentifier(
+							"add_place_string" + prefix, "string",
+							getPackageName()))) {
 						Intent intent = new Intent(RoutActivity.this,
 								AddActivity.class);
 						intent.putExtra(
 								"position",
 								marker.getPosition().latitude + ","
 										+ marker.getPosition().longitude);
-						intent.putExtra("prefix", prefix);
 						startActivity(intent);
 					} else {
-						if (title.equals(getResources().getString(
-								R.string.you_here_string))) {
+						if (title.equals(getResources().getIdentifier(
+								"you_here_string" + prefix, "string",
+								getPackageName()))) {
 						} else {
 							Intent intent = new Intent(RoutActivity.this,
 									InfoActivity.class);
 							intent.putExtra("title", title);
-							intent.putExtra("prefix", prefix);
 							startActivity(intent);
 						}
 					}
@@ -274,16 +276,14 @@ public class RoutActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		prefix = getIntent().getStringExtra("prefix");
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
 			setContentView(R.layout.activity_rout);
 			AsyncMaps maps = new AsyncMaps();
 			maps.execute();
 			ActionBar bar = getActionBar();
 			bar.setDisplayHomeAsUpEnabled(true);
-
-			Intent i = new Intent(RoutActivity.this, RoutActivity.class);
-			i.putExtra("prefix", prefix);
 		} else {
 			Toast toast = Toast.makeText(
 					getApplicationContext(),
@@ -318,7 +318,6 @@ public class RoutActivity extends Activity {
 		case android.R.id.home:
 			Intent intent = new Intent(this, StartActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			intent.putExtra("prefix", prefix);
 			startActivity(intent);
 			return true;
 		case NEW_MENU_ID: {

@@ -10,22 +10,23 @@
     <string name="title_activity_map"></string>
     <string name="title_activity_add"></string>
     <string name="title_activity_language"></string>
-    <string name="add_place_string">Клікніть сюди, щоб додати місце</string>
-    <string name="dialog_title_string">Не закривайте програму</string>
-    <string name="you_here_string">Ви тут</string>
-    <string name="no_inet_string">Інтернет з\"єдняння відсутнє</string>
-    <string name="no_google_play_services">Google Play Services є відсутнім</string>
-    <string name="load_string">Завантаження. Будь ласка, зачекайте..</string>
-    <string name="start_button_map">Карта</string>
-    <string name="start_button_places">Місця</string>
-    <string name="add_coord">Координати: </string>
-    <string name="add_name">Назва:</string>
-    <string name="add_descr">Опис:</string>
-    <string name="add_done">Готово</string>
-    <string name="add_thanks">Дякуємо!</string>
-    <string name="description_info">Інформація взята з www.7chudes.in.ua</string>
-    <string name="touch_here">Торкніться сюди</string>
-    <string name="change_view">Змінити вигляд карти</string>
+    <string name="add_place_string_ua">Клікніть сюди, щоб додати місце</string>
+    <string name="dialog_title_string_ua">Не закривайте програму</string>
+    <string name="you_here_string_ua">Ви тут</string>
+    <string name="no_inet_string_ua">Інтернет з\"єдняння відсутнє</string>
+    <string name="no_google_play_services_ua">Google Play Services є відсутнім</string>
+    <string name="load_string_ua">Завантаження. Будь ласка, зачекайте..</string>
+    <string name="start_button_map_ua">Карта</string>
+    <string name="start_button_places_ua">Місця</string>
+    <string name="add_coord_ua">Координати: </string>
+    <string name="add_name_ua">Назва:</string>
+    <string name="add_descr_ua">Опис:</string>
+    <string name="add_done_ua">Готово</string>
+    <string name="add_thanks_ua">Дякуємо!</string>
+    <string name="description_info_ua">Інформація взята з www.7chudes.in.ua</string>
+    <string name="touch_here_ua">Торкніться сюди</string>
+    <string name="change_view_ua">Змінити вигляд карти</string>
+    <string name="change_language_ua">Змінити мову</string>
     <!-- Polish -->
     <string name="add_place_string_pl">Kliknij tutaj, aby dodać miejsce</string>
     <string name="dialog_title_string_pl">Nie zamykaj programu</string>
@@ -43,6 +44,7 @@
     <string name="description_info_pl">Informacja pochodzi ze www.7chudes.in.ua</string>
     <string name="touch_here_pl">Dotknij tutaj</string>
     <string name="change_view_pl">Zmień widok mapy</string>
+    <string name="change_language_pl">Zmiana języka</string>
     <!-- English -->
     <string name="add_place_string_en">Click here to add new place</string>
     <string name="dialog_title_string_en">Don\'t close application</string>
@@ -64,5 +66,5 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="change_view_en">Change view of map</string>
-
+	<string name="change_language_en">Change language</string>
 </resources>
