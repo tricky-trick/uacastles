@@ -28,7 +28,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
@@ -50,10 +49,10 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_info);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
-			setContentView(R.layout.activity_info);
 			ActionBar bar = getActionBar();
 			bar.setDisplayHomeAsUpEnabled(true);
 			Intent intent = getIntent();
@@ -136,13 +135,6 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 			toast.show();
 			onBackPressed();
 		}
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		mMediaPlayer.stop();
-		mMediaPlayer.release();
 	}
 
 	@Override

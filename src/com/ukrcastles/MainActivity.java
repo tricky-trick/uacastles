@@ -1,15 +1,10 @@
 package com.ukrcastles;
 
-import java.io.IOException;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,35 +17,18 @@ public class MainActivity extends Activity {
 	private Handler mHandler = new Handler();
 	SQLiteDatabase db;
 	DataBaseHelper myDbHelper;
-	private String prefix;
 	SharedPreferences prefs;
-	private class AsyncStart extends AsyncTask<Void, Void, Void> {
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			mHandler.post(new Runnable() {
-				@SuppressLint("NewApi")
-				public void run() {
-					setContentView(R.layout.activity_main);
-				}
-			});
-			return null;
-		}
-	}
 
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		setContentView(R.layout.activity_main);
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		if (!prefs.getString("prefix", "").equals("")){
-			Intent i = new Intent(MainActivity.this,
-					StartActivity.class);
-			startActivity(i);
+		if (!prefs.getString("prefix", "").equals("")) {
+			Intent i = new Intent(MainActivity.this, StartActivity.class);
+			startActivity(i, savedInstanceState);
 		}
-		AsyncStart start = new AsyncStart();
-		start.execute();
 	}
 
 	public void langUa(View v) {

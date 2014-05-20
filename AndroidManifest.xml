@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:theme="@style/CustomTheme" >
         <activity
-            android:name="com.ukrcastles.StartActivity"
+            android:name=".StartActivity"
+            android:finishOnTaskLaunch="false"
             android:label="@string/title_activity_start" >
         </activity>
 
@@ -26,37 +27,38 @@
             android:value="AIzaSyDErgSoAv8ugZwRvh4UtNFS5kiPS9UegqA" />
 
         <activity
-            android:name="com.ukrcastles.InfoActivity"
+            android:name=".InfoActivity"
+            android:finishOnTaskLaunch="false"
             android:label="@string/title_activity_info" >
         </activity>
         <activity
-            android:name="com.ukrcastles.PlacesActivity"
+            android:name=".PlacesActivity"
+            android:finishOnTaskLaunch="false"
             android:label="@string/title_activity_places" >
         </activity>
         <activity
-            android:name="com.ukrcastles.RoutActivity"
+            android:name=".RoutActivity"
+            android:finishOnTaskLaunch="false"
             android:label="@string/title_activity_rout" >
         </activity>
         <activity
-            android:name="com.ukrcastles.MapActivity"
+            android:name=".MapActivity"
+            android:finishOnTaskLaunch="false"
             android:label="@string/title_activity_map" >
         </activity>
         <activity
-            android:name="com.ukrcastles.AddActivity"
+            android:name=".AddActivity"
+            android:finishOnTaskLaunch="false"
             android:label="@string/title_activity_add" >
         </activity>
         <activity
-            android:name="com.ukrcastles.MainActivity"
+            android:name=".MainActivity"
+            android:clearTaskOnLaunch="false"
             android:label="@string/title_activity_language" >
             <intent-filter android:label="@string/app_name" >
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.ukrcastles.BrowserActivity"
-            android:label="@string/title_activity_browser" >
         </activity>
     </application>
 

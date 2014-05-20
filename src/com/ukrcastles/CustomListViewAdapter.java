@@ -3,6 +3,9 @@ package com.ukrcastles;
 import java.util.List;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +51,14 @@ public class CustomListViewAdapter extends ArrayAdapter<RowItem> {
         //holder.txtDesc.setText(rowItem.getDesc());
         holder.txtTitle.setText(rowItem.getTitle());
         holder.txtDist.setText(rowItem.getDist());
+        
+//        Drawable d= context.getApplicationContext().getResources().getDrawable(rowItem.getImageId());
+//		d.setLevel(1234);
+//		BitmapDrawable bd=(BitmapDrawable) d.getCurrent();
+//		Bitmap b=bd.getBitmap();
+//		Bitmap bm = Bitmap.createScaledBitmap(b, b.getWidth()/18,b.getHeight()/18, false);
+//		
+//        holder.imageView.setImageBitmap(bm);
         holder.imageView.setImageResource(rowItem.getImageId());
  
         return convertView;

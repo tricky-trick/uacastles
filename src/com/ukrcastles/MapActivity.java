@@ -1,6 +1,10 @@
 package com.ukrcastles;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -27,13 +32,18 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LevelListDrawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -60,8 +70,8 @@ public class MapActivity extends Activity {
 	int i = 0;
 	Marker marker;
 	String prefix;
-	private static final int NEW_MENU_ID = Menu.FIRST+1;
-	
+	private static final int NEW_MENU_ID = Menu.FIRST + 1;
+
 	public int setMyLocation() {
 		gpsTracker = new GPSTracker(MapActivity.this);
 		if (gpsTracker.canGetLocation()) {
@@ -163,7 +173,8 @@ public class MapActivity extends Activity {
 						// coord.longitude), distance);
 
 						mapDist.put(coordinates + ";" + name + ";"
-								+ description + ";" + image + ";" + distance, distance);
+								+ description + ";" + image + ";" + distance,
+								distance);
 					}
 
 					List list = new LinkedList(mapDist.entrySet());
@@ -199,7 +210,6 @@ public class MapActivity extends Activity {
 		protected void onPreExecute() {
 			spHandler.post(new Runnable() {
 				@SuppressLint("NewApi")
-				@SuppressWarnings({ "unchecked", "rawtypes" })
 				public void run() {
 					dialog = new ProgressDialog(MapActivity.this);
 					dialog.setTitle(getResources().getIdentifier(
@@ -224,7 +234,8 @@ public class MapActivity extends Activity {
 				String description = it.get(i).toString().split(";")[2];
 				String image = it.get(i).toString().split(";")[3];
 				String distance = it.get(i).toString().split(";")[4];
-				int distanceMeter = Math.round(Float.parseFloat(distance) * 100) / 100;
+				int distanceMeter = Math
+						.round(Float.parseFloat(distance) * 100) / 100;
 				if (distanceMeter < 1000)
 					distance = String.valueOf(distanceMeter) + " m";
 				else {
@@ -245,6 +256,18 @@ public class MapActivity extends Activity {
 						.split(",")[0]), Double.parseDouble(coordinates
 						.split(",")[1]));
 
+				// Drawable d= getResources().getDrawable(getResources()
+				// .getIdentifier("drawable/" + image, null,
+				// getPackageName()));
+				// d.setLevel(1234);
+				// BitmapDrawable bd=(BitmapDrawable) d.getCurrent();
+				// BitmapFactory.Options o = new BitmapFactory.Options();
+				// o.inJustDecodeBounds = true;
+				// Bitmap b=bd.getBitmap();
+				//
+				// Bitmap bhalfsize=Bitmap.createScaledBitmap(b,
+				// b.getWidth()/15,b.getHeight()/15, false);
+
 				map.addMarker(new MarkerOptions()
 						.title(name + " - " + distance)
 						.snippet(
@@ -256,6 +279,8 @@ public class MapActivity extends Activity {
 														"string",
 														getPackageName()))
 										+ ")")
+						// .icon(BitmapDescriptorFactory.fromBitmap(bhalfsize)).anchor(0.0f,
+						// 1.0f)
 						.icon(BitmapDescriptorFactory
 								.fromResource(getResources().getIdentifier(
 										"drawable/ico_" + image, null,
@@ -310,17 +335,11 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		setContentView(R.layout.activity_map);
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
-			сHandler.post(new Runnable() {
-
-				@Override
-				public void run() {
-					setContentView(R.layout.activity_map);
-
-				}
-			});
 			AsyncMaps aMaps = new AsyncMaps();
 			aMaps.execute();
 
@@ -339,16 +358,19 @@ public class MapActivity extends Activity {
 		}
 
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		menu.add(0, NEW_MENU_ID, 0, getString(getResources().getIdentifier(
-				"change_view" + prefix, "string",
-				getPackageName()))); 
+		menu.add(
+				0,
+				NEW_MENU_ID,
+				0,
+				getString(getResources().getIdentifier("change_view" + prefix,
+						"string", getPackageName())));
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

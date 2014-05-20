@@ -64,7 +64,6 @@ public class RoutActivity extends Activity {
 		protected void onPreExecute() {
 			spHandler.post(new Runnable() {
 				@SuppressLint("NewApi")
-				@SuppressWarnings({ "unchecked", "rawtypes" })
 				public void run() {
 					dialog = new ProgressDialog(RoutActivity.this);
 					dialog.setTitle(getResources().getIdentifier(
@@ -276,10 +275,10 @@ public class RoutActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_rout);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
-			setContentView(R.layout.activity_rout);
 			AsyncMaps maps = new AsyncMaps();
 			maps.execute();
 			ActionBar bar = getActionBar();

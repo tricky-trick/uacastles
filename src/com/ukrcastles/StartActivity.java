@@ -1,23 +1,12 @@
 package com.ukrcastles;
 
-import java.io.IOException;
-
-import com.google.android.gms.maps.GoogleMap;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +23,6 @@ public class StartActivity extends Activity {
 	Button buttonMap;
 	Button buttonPlaces;
 	String prefix;
-	private Handler mHandler = new Handler();
 	private static final int NEW_MENU_ID = Menu.FIRST + 1;
 	SQLiteDatabase db;
 	DataBaseHelper myDbHelper;
@@ -42,9 +30,9 @@ public class StartActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_start);
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
-		setContentView(R.layout.activity_start);
 		buttonMap = (Button) findViewById(R.id.localmap);
 		buttonPlaces = (Button) findViewById(R.id.place);
 
