@@ -5,13 +5,18 @@ import java.io.IOException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
+import android.support.v4.app.Fragment;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -213,15 +218,18 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 			pause();
 	}
 
-	public void goToClick(View v) {
-		Intent i = new Intent(InfoActivity.this, RoutActivity.class);
-		i.putExtra("title", textTitle.getText());
-		startActivity(i);
-	}
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.action_rout:
+			Intent i = new Intent(InfoActivity.this, RoutActivity.class);
+			i.putExtra("title", textTitle.getText());
+			startActivity(i);
+			return true;
+		case R.id.action_list:
+			Intent in = new Intent(InfoActivity.this, PlacesActivity.class);
+			startActivity(in);
+			return true;
 		case android.R.id.home:
 			Intent intent = new Intent(this, StartActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -231,4 +239,29 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	public static class PlaceholderFragment extends Fragment {
+
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_info, container,
+					false);
+			return rootView;
+		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.menu_rout, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}
+
 }

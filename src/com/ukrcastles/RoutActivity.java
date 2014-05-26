@@ -11,8 +11,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -36,9 +34,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 @SuppressLint("NewApi")
@@ -56,6 +59,7 @@ public class RoutActivity extends Activity {
 	Marker marker;
 	String prefix;
 	private static final int NEW_MENU_ID = Menu.FIRST+2;
+	private String type = "driving";
 
 	private class AsyncMaps extends AsyncTask<String, Void, Integer> {
 		ProgressDialog dialog;
@@ -99,6 +103,8 @@ public class RoutActivity extends Activity {
 			} catch (SQLException sqle) {
 				throw sqle;
 			}
+			if(params.length != 0)
+				type = params[0];
 			mHandler.post(new Runnable() {
 				@SuppressLint("NewApi")
 				public void run() {
@@ -163,7 +169,7 @@ public class RoutActivity extends Activity {
 						// Walking
 						GMapV2Direction mdDist = new GMapV2Direction();
 						Document doc_dist = mdDist.getDocument(myCoord,
-								myNearCoord, "driving");
+								myNearCoord, type);
 						ArrayList<LatLng> directionPointDist = mdDist
 								.getDirection(doc_dist);
 						PolylineOptions rectLineDist = new PolylineOptions()
@@ -304,16 +310,24 @@ public class RoutActivity extends Activity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.menu_type_drive, menu);
 		menu.add(0, NEW_MENU_ID, 0, getString(getResources().getIdentifier(
 				"change_view" + prefix, "string",
 				getPackageName()))); 
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		AsyncMaps maps = new AsyncMaps();
 		switch (item.getItemId()) {
+		case R.id.action_drive:
+			maps.execute("driving");
+			return true;
+		case R.id.action_walk:
+			maps.execute("walking");
+			return true;
 		case android.R.id.home:
 			Intent intent = new Intent(this, StartActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -328,6 +342,23 @@ public class RoutActivity extends Activity {
 		}
 		default:
 			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	public static class PlaceholderFragment extends Fragment {
+
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_rout, container,
+					false);
+			return rootView;
 		}
 	}
 }

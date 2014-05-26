@@ -1,10 +1,6 @@
 package com.ukrcastles;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,7 +18,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -37,20 +32,19 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LevelListDrawable;
 import android.location.Location;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
@@ -361,14 +355,15 @@ public class MapActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_map, menu);
 		menu.add(
 				0,
 				NEW_MENU_ID,
 				0,
 				getString(getResources().getIdentifier("change_view" + prefix,
 						"string", getPackageName())));
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -379,6 +374,10 @@ public class MapActivity extends Activity {
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			return true;
+		case R.id.action_list_map:
+			Intent in = new Intent(MapActivity.this, PlacesActivity.class);
+			startActivity(in);
+			return true;
 		case NEW_MENU_ID: {
 			if (map.getMapType() == GoogleMap.MAP_TYPE_NORMAL)
 				map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -388,6 +387,23 @@ public class MapActivity extends Activity {
 		}
 		default:
 			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	public static class PlaceholderFragment extends Fragment {
+
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_map, container,
+					false);
+			return rootView;
 		}
 	}
 }

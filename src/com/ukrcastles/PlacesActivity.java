@@ -229,7 +229,7 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Intent i = new Intent(PlacesActivity.this, RoutActivity.class);
+		Intent i = new Intent(PlacesActivity.this, InfoActivity.class);
 		i.putExtra("title", rowItems.get(position).getTitle());
 		startActivity(i);
 	}
