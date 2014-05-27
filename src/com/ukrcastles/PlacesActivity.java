@@ -30,9 +30,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -58,24 +60,11 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(PlacesActivity.this);
-			dialog.setTitle(getResources().getIdentifier(
-					"dialog_title_string" + prefix, "string", getPackageName()));
-			dialog.setMessage(getString(getResources().getIdentifier(
-					"load_string" + prefix, "string", getPackageName())));
-			dialog.setIndeterminate(true);
-			dialog.setCancelable(false);
-			dialog.show();
+			setProgressBarIndeterminateVisibility(true);
 		}
 
 		@Override
 		protected ArrayList<String> doInBackground(String... params) {
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			myDbHelper = new DataBaseHelper(PlacesActivity.this);
 			try {
 				myDbHelper.createDataBase();
@@ -197,7 +186,7 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 					PlacesActivity.this, R.layout.list_item, rowItems);
 			listView.setAdapter(adapter);
 			listView.setOnItemClickListener(PlacesActivity.this);
-			dialog.dismiss();
+			setProgressBarIndeterminateVisibility(false);
 		}
 
 	}
@@ -206,10 +195,11 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_PROGRESS);
+		setContentView(R.layout.activity_places);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
-			setContentView(R.layout.activity_places);
 			AsyncMaps aMaps = new AsyncMaps();
 			aMaps.execute();
 			ActionBar bar = getActionBar();

@@ -64,4 +64,25 @@ public class MainActivity extends Activity {
 		editor.putString("prefix", val);
 		editor.commit();
 	}
+	
+	private void addShortcut() {
+	    //Adding shortcut for MainActivity 
+	    //on Home screen
+	    Intent shortcutIntent = new Intent(getApplicationContext(),
+	            MainActivity.class);
+
+	    shortcutIntent.setAction(Intent.ACTION_MAIN);
+
+	    Intent addIntent = new Intent();
+	    addIntent
+	            .putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+	    addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, R.string.app_name);
+	    addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+	            Intent.ShortcutIconResource.fromContext(getApplicationContext(),
+	                    R.drawable.ic_launcher));
+
+	    addIntent
+	            .setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+	    getApplicationContext().sendBroadcast(addIntent);
+	}
 }

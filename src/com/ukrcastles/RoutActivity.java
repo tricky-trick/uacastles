@@ -9,6 +9,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -35,6 +36,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,6 +44,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Toast;
 
 @SuppressLint("NewApi")
@@ -58,8 +61,10 @@ public class RoutActivity extends Activity {
 	String title;
 	Marker marker;
 	String prefix;
-	private static final int NEW_MENU_ID = Menu.FIRST+2;
+	private static final int NEW_MENU_ID = Menu.FIRST + 2;
 	private String type = "driving";
+	private String distance;
+	private String time;
 
 	private class AsyncMaps extends AsyncTask<String, Void, Integer> {
 		ProgressDialog dialog;
@@ -68,28 +73,15 @@ public class RoutActivity extends Activity {
 		protected void onPreExecute() {
 			spHandler.post(new Runnable() {
 				@SuppressLint("NewApi")
+				@SuppressWarnings({ "unchecked", "rawtypes" })
 				public void run() {
-					dialog = new ProgressDialog(RoutActivity.this);
-					dialog.setTitle(getResources().getIdentifier(
-							"dialog_title_string" + prefix, "string",
-							getPackageName()));
-					dialog.setMessage(getString(getResources().getIdentifier(
-							"load_string" + prefix, "string", getPackageName())));
-					dialog.setIndeterminate(true);
-					dialog.setCancelable(false);
-					dialog.show();
+					setProgressBarIndeterminateVisibility(true);
 				}
 			});
 		}
 
 		@Override
 		protected Integer doInBackground(String... params) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			Intent intent = getIntent();
 			title = intent.getStringExtra("title");
 			myDbHelper = new DataBaseHelper(RoutActivity.this);
@@ -103,7 +95,7 @@ public class RoutActivity extends Activity {
 			} catch (SQLException sqle) {
 				throw sqle;
 			}
-			if(params.length != 0)
+			if (params.length != 0)
 				type = params[0];
 			mHandler.post(new Runnable() {
 				@SuppressLint("NewApi")
@@ -172,6 +164,8 @@ public class RoutActivity extends Activity {
 								myNearCoord, type);
 						ArrayList<LatLng> directionPointDist = mdDist
 								.getDirection(doc_dist);
+						distance = mdDist.getDistanceText(doc_dist);
+						time = mdDist.getDurationText(doc_dist);
 						PolylineOptions rectLineDist = new PolylineOptions()
 								.width(6).color(Color.GREEN);
 
@@ -199,50 +193,23 @@ public class RoutActivity extends Activity {
 		@Override
 		protected void onPostExecute(Integer i) {
 			map.addMarker(new MarkerOptions()
-					.title(title)
+					.title(title + " - " + distance + " - " + time)
+					.snippet("(" + getString(getResources().getIdentifier(
+											"touch_here" + prefix, "string",
+											getPackageName())) + ")")
 					.anchor(0.0f, 1.0f)
 					.icon(BitmapDescriptorFactory
 							.fromResource(R.drawable.finish))
 					.position(myNearCoord));
 			db.close();
-			dialog.dismiss();
-			// map.setOnInfoWindowClickListener(new OnInfoWindowClickListener()
-			// {
-			// @Override
-			// public void onInfoWindowClick(Marker marker) {
-			// String title = marker.getTitle();
-			// if (title.equals(getResources().getString(
-			// R.string.add_place_string))) {
-			// Intent intent = new Intent(RoutActivity.this,
-			// AddActivity.class);
-			// intent.putExtra(
-			// "position",
-			// marker.getPosition().latitude + ","
-			// + marker.getPosition().longitude);
-			// intent.putExtra("prefix", prefix);
-			// startActivity(intent);
-			// } else {
-			// if (title.equals(getResources().getString(
-			// R.string.you_here_string))) {
-			// } else {
-			// Intent intent = new Intent(RoutActivity.this,
-			// InfoActivity.class);
-			// intent.putExtra("title", title);
-			// intent.putExtra("prefix", prefix);
-			// startActivity(intent);
-			// }
-			// }
-			// }
-			// });
-
-			map.setOnMarkerClickListener(new OnMarkerClickListener() {
-
+			setProgressBarIndeterminateVisibility(false);
+			map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 				@Override
-				public boolean onMarkerClick(Marker marker) {
+				public void onInfoWindowClick(Marker marker) {
 					String title = marker.getTitle();
-					if (title.equals(getResources().getIdentifier(
+					if (title.equals(getString(getResources().getIdentifier(
 							"add_place_string" + prefix, "string",
-							getPackageName()))) {
+							getPackageName())))) {
 						Intent intent = new Intent(RoutActivity.this,
 								AddActivity.class);
 						intent.putExtra(
@@ -251,19 +218,48 @@ public class RoutActivity extends Activity {
 										+ marker.getPosition().longitude);
 						startActivity(intent);
 					} else {
-						if (title.equals(getResources().getIdentifier(
-								"you_here_string" + prefix, "string",
-								getPackageName()))) {
+						if (title.equals(getString(getResources()
+								.getIdentifier("you_here_string" + prefix,
+										"string", getPackageName())))) {
 						} else {
 							Intent intent = new Intent(RoutActivity.this,
 									InfoActivity.class);
-							intent.putExtra("title", title);
+							intent.putExtra("title", title.split("-")[0].trim());
 							startActivity(intent);
 						}
 					}
-					return true;
 				}
 			});
+
+			// map.setOnMarkerClickListener(new OnMarkerClickListener() {
+			//
+			// @Override
+			// public boolean onMarkerClick(Marker marker) {
+			// String title = marker.getTitle();
+			// if (title.equals(getResources().getIdentifier(
+			// "add_place_string" + prefix, "string",
+			// getPackageName()))) {
+			// Intent intent = new Intent(RoutActivity.this,
+			// AddActivity.class);
+			// intent.putExtra(
+			// "position",
+			// marker.getPosition().latitude + ","
+			// + marker.getPosition().longitude);
+			// startActivity(intent);
+			// } else {
+			// if (title.equals(getResources().getIdentifier(
+			// "you_here_string" + prefix, "string",
+			// getPackageName()))) {
+			// } else {
+			// Intent intent = new Intent(RoutActivity.this,
+			// InfoActivity.class);
+			// intent.putExtra("title", title);
+			// startActivity(intent);
+			// }
+			// }
+			// return true;
+			// }
+			// });
 
 			/*
 			 * map.setOnMapClickListener(new OnMapClickListener() {
@@ -281,8 +277,10 @@ public class RoutActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.activity_rout);
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
 			AsyncMaps maps = new AsyncMaps();
@@ -307,14 +305,17 @@ public class RoutActivity extends Activity {
 				.getActiveNetworkInfo();
 		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.menu_type_drive, menu);
-		menu.add(0, NEW_MENU_ID, 0, getString(getResources().getIdentifier(
-				"change_view" + prefix, "string",
-				getPackageName()))); 
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_type_drive, menu);
+		menu.add(
+				0,
+				NEW_MENU_ID,
+				0,
+				getString(getResources().getIdentifier("change_view" + prefix,
+						"string", getPackageName())));
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -344,7 +345,7 @@ public class RoutActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

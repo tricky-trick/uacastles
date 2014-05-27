@@ -38,6 +38,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,6 +46,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
@@ -102,12 +104,6 @@ public class MapActivity extends Activity {
 		@SuppressLint("NewApi")
 		@Override
 		protected ArrayList<String> doInBackground(String... params) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			myDbHelper = new DataBaseHelper(MapActivity.this);
 			try {
 				myDbHelper.createDataBase();
@@ -204,16 +200,10 @@ public class MapActivity extends Activity {
 		protected void onPreExecute() {
 			spHandler.post(new Runnable() {
 				@SuppressLint("NewApi")
+				@SuppressWarnings({ "unchecked", "rawtypes" })
 				public void run() {
-					dialog = new ProgressDialog(MapActivity.this);
-					dialog.setTitle(getResources().getIdentifier(
-							"dialog_title_string" + prefix, "string",
-							getPackageName()));
-					dialog.setMessage(getString(getResources().getIdentifier(
-							"load_string" + prefix, "string", getPackageName())));
-					dialog.setIndeterminate(true);
-					dialog.setCancelable(false);
-					dialog.show();
+					setProgressBarIndeterminateVisibility(true);
+				    setProgressBarVisibility(true);
 				}
 			});
 		}
@@ -284,7 +274,8 @@ public class MapActivity extends Activity {
 			}
 
 			db.close();
-			dialog.dismiss();
+	        setProgressBarIndeterminateVisibility(false);
+	        setProgressBarVisibility(false);
 			map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 				@Override
 				public void onInfoWindowClick(Marker marker) {
@@ -329,13 +320,17 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		requestWindowFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.activity_map);
+
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
-			AsyncMaps aMaps = new AsyncMaps();
-			aMaps.execute();
+
+			AsyncMaps maps = new AsyncMaps();
+			maps.execute();
 
 			ActionBar bar = getActionBar();
 			bar.setDisplayHomeAsUpEnabled(true);
@@ -350,7 +345,6 @@ public class MapActivity extends Activity {
 			toast.show();
 			onBackPressed();
 		}
-
 	}
 
 	@Override
