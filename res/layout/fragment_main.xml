@@ -5,9 +5,9 @@
     android:background="#00CCFF"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#00CCFF"
         android:orientation="vertical" >
 
@@ -17,7 +17,10 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerHorizontal="true"
-            android:layout_weight = ".50" />
-    </LinearLayout>
+            android:layout_centerVertical="true"
+            android:paddingTop="150dp"
+            android:paddingBottom="200dp"/>
+
+    </RelativeLayout>
 
 </ScrollView>

@@ -19,7 +19,6 @@ import com.google.android.gms.maps.model.LatLng;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -30,7 +29,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,8 +53,6 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 	String prefix;
 
 	private class AsyncMaps extends AsyncTask<String, Void, ArrayList<String>> {
-
-		ProgressDialog dialog;
 
 		@Override
 		protected void onPreExecute() {

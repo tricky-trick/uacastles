@@ -10,7 +10,6 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -21,7 +20,6 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,7 +34,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -67,13 +64,10 @@ public class RoutActivity extends Activity {
 	private String time;
 
 	private class AsyncMaps extends AsyncTask<String, Void, Integer> {
-		ProgressDialog dialog;
-
 		@Override
 		protected void onPreExecute() {
 			spHandler.post(new Runnable() {
 				@SuppressLint("NewApi")
-				@SuppressWarnings({ "unchecked", "rawtypes" })
 				public void run() {
 					setProgressBarIndeterminateVisibility(true);
 				}

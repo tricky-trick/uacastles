@@ -65,6 +65,7 @@ public class MainActivity extends Activity {
 		editor.commit();
 	}
 	
+	@SuppressWarnings("unused")
 	private void addShortcut() {
 	    //Adding shortcut for MainActivity 
 	    //on Home screen

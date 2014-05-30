@@ -26,7 +26,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -38,7 +37,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -99,7 +97,6 @@ public class MapActivity extends Activity {
 	}
 
 	private class AsyncMaps extends AsyncTask<String, Void, ArrayList<String>> {
-		ProgressDialog dialog;
 
 		@SuppressLint("NewApi")
 		@Override
@@ -200,7 +197,6 @@ public class MapActivity extends Activity {
 		protected void onPreExecute() {
 			spHandler.post(new Runnable() {
 				@SuppressLint("NewApi")
-				@SuppressWarnings({ "unchecked", "rawtypes" })
 				public void run() {
 					setProgressBarIndeterminateVisibility(true);
 				    setProgressBarVisibility(true);
