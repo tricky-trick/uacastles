@@ -87,6 +87,15 @@ public class StartActivity extends Activity {
 		}
 	}
 	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		// Monitor launch times and interval from installation
+		RateThisApp.onStart(this);
+		// Show a dialog if criteria is satisfied
+		RateThisApp.showRateDialogIfNeeded(this);
+	}
+	
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */

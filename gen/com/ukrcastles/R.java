@@ -445,28 +445,28 @@ containing a value of this type.
         public static final int menu_type_drive=0x7f0b0002;
     }
     public static final class string {
-        public static final int action_settings=0x7f060057;
-        public static final int add_coord_en=0x7f06004d;
-        public static final int add_coord_pl=0x7f06003c;
+        public static final int action_settings=0x7f060061;
+        public static final int add_coord_en=0x7f060057;
+        public static final int add_coord_pl=0x7f060041;
         public static final int add_coord_ua=0x7f06002b;
-        public static final int add_descr_en=0x7f06004f;
-        public static final int add_descr_pl=0x7f06003e;
+        public static final int add_descr_en=0x7f060059;
+        public static final int add_descr_pl=0x7f060043;
         public static final int add_descr_ua=0x7f06002d;
-        public static final int add_done_en=0x7f060050;
-        public static final int add_done_pl=0x7f06003f;
+        public static final int add_done_en=0x7f06005a;
+        public static final int add_done_pl=0x7f060044;
         public static final int add_done_ua=0x7f06002e;
-        public static final int add_name_en=0x7f06004e;
-        public static final int add_name_pl=0x7f06003d;
+        public static final int add_name_en=0x7f060058;
+        public static final int add_name_pl=0x7f060042;
         public static final int add_name_ua=0x7f06002c;
         /**  English 
          */
-        public static final int add_place_string_en=0x7f060045;
+        public static final int add_place_string_en=0x7f06004f;
         /**  Polish 
          */
-        public static final int add_place_string_pl=0x7f060034;
+        public static final int add_place_string_pl=0x7f060039;
         public static final int add_place_string_ua=0x7f060023;
-        public static final int add_thanks_en=0x7f060051;
-        public static final int add_thanks_pl=0x7f060040;
+        public static final int add_thanks_en=0x7f06005b;
+        public static final int add_thanks_pl=0x7f060045;
         public static final int add_thanks_ua=0x7f06002f;
         /**  Ukrainian 
          */
@@ -494,11 +494,11 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f060014;
-        public static final int change_language_en=0x7f060059;
-        public static final int change_language_pl=0x7f060044;
+        public static final int change_language_en=0x7f060063;
+        public static final int change_language_pl=0x7f060049;
         public static final int change_language_ua=0x7f060033;
-        public static final int change_view_en=0x7f060058;
-        public static final int change_view_pl=0x7f060043;
+        public static final int change_view_en=0x7f060062;
+        public static final int change_view_pl=0x7f060048;
         public static final int change_view_ua=0x7f060032;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
@@ -571,67 +571,82 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060013;
-        public static final int description_info_en=0x7f060053;
-        public static final int description_info_pl=0x7f060041;
+        public static final int description_info_en=0x7f06005d;
+        public static final int description_info_pl=0x7f060046;
         public static final int description_info_ua=0x7f060030;
-        public static final int dialog_title_string_en=0x7f060046;
-        public static final int dialog_title_string_pl=0x7f060035;
+        public static final int dialog_title_string_en=0x7f060050;
+        public static final int dialog_title_string_pl=0x7f06003a;
         public static final int dialog_title_string_ua=0x7f060024;
-        public static final int hello_world=0x7f060056;
-        public static final int load_string_en=0x7f06004a;
-        public static final int load_string_pl=0x7f060039;
+        public static final int hello_world=0x7f060060;
+        public static final int load_string_en=0x7f060054;
+        public static final int load_string_pl=0x7f06003e;
         public static final int load_string_ua=0x7f060028;
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f06001a;
-        public static final int no_google_play_services_en=0x7f060049;
-        public static final int no_google_play_services_pl=0x7f060038;
+        public static final int no_google_play_services_en=0x7f060053;
+        public static final int no_google_play_services_pl=0x7f06003d;
         public static final int no_google_play_services_ua=0x7f060027;
-        public static final int no_inet_string_en=0x7f060048;
-        public static final int no_inet_string_pl=0x7f060037;
+        public static final int no_inet_string_en=0x7f060052;
+        public static final int no_inet_string_pl=0x7f06003c;
         public static final int no_inet_string_ua=0x7f060026;
-        public static final int pref_default_display_name=0x7f06005f;
-        public static final int pref_description_social_recommendations=0x7f06005d;
+        public static final int pref_default_display_name=0x7f06006e;
+        public static final int pref_description_social_recommendations=0x7f06006c;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f060061;
+        public static final int pref_header_data_sync=0x7f060070;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f06005b;
+        public static final int pref_header_general=0x7f06006a;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f060064;
-        public static final int pref_ringtone_silent=0x7f060067;
-        public static final int pref_title_add_friends_to_messages=0x7f060060;
-        public static final int pref_title_display_name=0x7f06005e;
-        public static final int pref_title_new_message_notifications=0x7f060065;
-        public static final int pref_title_ringtone=0x7f060066;
-        public static final int pref_title_social_recommendations=0x7f06005c;
-        public static final int pref_title_sync_frequency=0x7f060062;
-        public static final int pref_title_system_sync_settings=0x7f060063;
-        public static final int pref_title_vibrate=0x7f060068;
-        public static final int start_button_map_en=0x7f06004b;
-        public static final int start_button_map_pl=0x7f06003a;
+        public static final int pref_header_notifications=0x7f060073;
+        public static final int pref_ringtone_silent=0x7f060076;
+        public static final int pref_title_add_friends_to_messages=0x7f06006f;
+        public static final int pref_title_display_name=0x7f06006d;
+        public static final int pref_title_new_message_notifications=0x7f060074;
+        public static final int pref_title_ringtone=0x7f060075;
+        public static final int pref_title_social_recommendations=0x7f06006b;
+        public static final int pref_title_sync_frequency=0x7f060071;
+        public static final int pref_title_system_sync_settings=0x7f060072;
+        public static final int pref_title_vibrate=0x7f060077;
+        public static final int rta_dialog_cancel_en=0x7f060067;
+        public static final int rta_dialog_cancel_pl=0x7f06004d;
+        public static final int rta_dialog_cancel_ua=0x7f060037;
+        public static final int rta_dialog_message_en=0x7f060065;
+        public static final int rta_dialog_message_pl=0x7f06004b;
+        public static final int rta_dialog_message_ua=0x7f060035;
+        public static final int rta_dialog_no_en=0x7f060068;
+        public static final int rta_dialog_no_pl=0x7f06004e;
+        public static final int rta_dialog_no_ua=0x7f060038;
+        public static final int rta_dialog_ok_en=0x7f060066;
+        public static final int rta_dialog_ok_pl=0x7f06004c;
+        public static final int rta_dialog_ok_ua=0x7f060036;
+        public static final int rta_dialog_title_en=0x7f060064;
+        public static final int rta_dialog_title_pl=0x7f06004a;
+        public static final int rta_dialog_title_ua=0x7f060034;
+        public static final int start_button_map_en=0x7f060055;
+        public static final int start_button_map_pl=0x7f06003f;
         public static final int start_button_map_ua=0x7f060029;
-        public static final int start_button_places_en=0x7f06004c;
-        public static final int start_button_places_pl=0x7f06003b;
+        public static final int start_button_places_en=0x7f060056;
+        public static final int start_button_places_pl=0x7f060040;
         public static final int start_button_places_ua=0x7f06002a;
         public static final int title_activity_add=0x7f060021;
-        public static final int title_activity_browser=0x7f060055;
+        public static final int title_activity_browser=0x7f06005f;
         public static final int title_activity_info=0x7f06001d;
         public static final int title_activity_language=0x7f060022;
-        public static final int title_activity_language_en=0x7f060052;
+        public static final int title_activity_language_en=0x7f06005c;
         public static final int title_activity_map=0x7f060020;
         public static final int title_activity_places=0x7f06001e;
         public static final int title_activity_rout=0x7f06001f;
-        public static final int title_activity_settings=0x7f06005a;
+        public static final int title_activity_settings=0x7f060069;
         public static final int title_activity_start=0x7f06001c;
-        public static final int touch_here_en=0x7f060054;
-        public static final int touch_here_pl=0x7f060042;
+        public static final int touch_here_en=0x7f06005e;
+        public static final int touch_here_pl=0x7f060047;
         public static final int touch_here_ua=0x7f060031;
-        public static final int you_here_string_en=0x7f060047;
-        public static final int you_here_string_pl=0x7f060036;
+        public static final int you_here_string_en=0x7f060051;
+        public static final int you_here_string_pl=0x7f06003b;
         public static final int you_here_string_ua=0x7f060025;
     }
     public static final class style {

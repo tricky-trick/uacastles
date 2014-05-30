@@ -232,5 +232,14 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		// Monitor launch times and interval from installation
+		RateThisApp.onStart(this);
+		// Show a dialog if criteria is satisfied
+		RateThisApp.showRateDialogIfNeeded(this);
+	}
 
 }
