@@ -187,8 +187,8 @@ public class RoutActivity extends Activity {
 		@Override
 		protected void onPostExecute(Integer i) {
 			map.addMarker(new MarkerOptions()
-					.title(title + " - " + distance + " - " + time)
-					.snippet("(" + getString(getResources().getIdentifier(
+					.title(title)
+					.snippet(distance + " - " + time + "\n\n(" + getString(getResources().getIdentifier(
 											"touch_here" + prefix, "string",
 											getPackageName())) + ")")
 					.anchor(0.0f, 1.0f)
@@ -218,7 +218,7 @@ public class RoutActivity extends Activity {
 						} else {
 							Intent intent = new Intent(RoutActivity.this,
 									InfoActivity.class);
-							intent.putExtra("title", title.split("-")[0].trim());
+							intent.putExtra("title", title.trim());
 							startActivity(intent);
 						}
 					}
