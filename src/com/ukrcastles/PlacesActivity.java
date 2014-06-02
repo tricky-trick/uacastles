@@ -26,6 +26,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -99,8 +100,9 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 
 						String coordinates = c.getString(c
 								.getColumnIndex("coordinates"));
-						String name = c.getString(c.getColumnIndex("name" + prefix))
-								.replace(";", ",");
+						String name = c.getString(
+								c.getColumnIndex("name" + prefix)).replace(";",
+								",");
 						String image = c.getString(c.getColumnIndex("image"));
 
 						LatLng coord = new LatLng(Double
@@ -174,7 +176,8 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 				String name = it.get(i).toString().split(";")[3];
 				RowItem item = new RowItem(PlacesActivity.this.getResources()
 						.getIdentifier("drawable/" + image, null,
-								PlacesActivity.this.getPackageName()), name, distance);
+								PlacesActivity.this.getPackageName()), name,
+						distance);
 				rowItems.add(item);
 			}
 			listView = (ListView) findViewById(R.id.list);
@@ -193,19 +196,24 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.activity_places);
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
 			AsyncMaps aMaps = new AsyncMaps();
 			aMaps.execute();
-			ActionBar bar = getActionBar();
-			bar.setDisplayHomeAsUpEnabled(true);
-			Intent i = new Intent(PlacesActivity.this, PlacesActivity.class);
-			i.putExtra("prefix", prefix);
+			if (Build.VERSION.SDK_INT >= 15) {
+				ActionBar bar = getActionBar();
+				bar.setDisplayHomeAsUpEnabled(true);
+			}
+			//Intent i = new Intent(PlacesActivity.this, PlacesActivity.class);
+			//i.putExtra("prefix", prefix);
 		} else {
-			Toast toast = Toast.makeText(getApplicationContext(), getString(getResources().getIdentifier(
-					"no_google_play_services" + prefix, "string", getPackageName())),
-					Toast.LENGTH_SHORT);
+			Toast toast = Toast.makeText(
+					getApplicationContext(),
+					getString(getResources().getIdentifier(
+							"no_google_play_services" + prefix, "string",
+							getPackageName())), Toast.LENGTH_SHORT);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
 			onBackPressed();
@@ -232,7 +240,7 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();

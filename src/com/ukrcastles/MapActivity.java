@@ -33,10 +33,12 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -48,7 +50,7 @@ import android.view.Window;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
-public class MapActivity extends Activity {
+public class MapActivity extends FragmentActivity {
 
 	GoogleMap map;
 	AutoCompleteTextView autoComplete;
@@ -318,18 +320,18 @@ public class MapActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		requestWindowFeature(Window.FEATURE_PROGRESS);
-		setContentView(R.layout.activity_map);
-
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
-
+			setContentView(R.layout.activity_map);
 			AsyncMaps maps = new AsyncMaps();
 			maps.execute();
 
-			ActionBar bar = getActionBar();
-			bar.setDisplayHomeAsUpEnabled(true);
+			if (Build.VERSION.SDK_INT >= 15) {
+				ActionBar bar = getActionBar();
+				bar.setDisplayHomeAsUpEnabled(true);
+			}
 
 		} else {
 			Toast toast = Toast.makeText(

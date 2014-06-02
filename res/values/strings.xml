@@ -30,8 +30,9 @@
     <string name="rta_dialog_title_ua">Оцінити програму</string>
     <string name="rta_dialog_message_ua">Бажаєте оцінити програму зараз? Ваш голос для нашс є важливий.</string>
     <string name="rta_dialog_ok_ua">Так</string>
-    <string name="rta_dialog_cancel_ua">Ні, дякую</string>
-    <string name="rta_dialog_no_ua">Не зараз</string>
+    <string name="rta_dialog_cancel_ua">Не зараз</string>
+    <string name="rta_dialog_no_ua">Ні, дякую</string>
+    <string name="turn_gps_ua">Будь ласка, увімкніть GPS</string>
     <!-- Polish -->
     <string name="add_place_string_pl">Kliknij tutaj, aby dodać miejsce</string>
     <string name="dialog_title_string_pl">Nie zamykaj programu</string>
@@ -50,11 +51,12 @@
     <string name="touch_here_pl">Dotknij tutaj</string>
     <string name="change_view_pl">Zmień widok mapy</string>
     <string name="change_language_pl">Zmiana języka</string>
-    <string name="rta_dialog_title_pl">Змінити мову</string>
-    <string name="rta_dialog_message_pl">Змінити мову</string>
-    <string name="rta_dialog_ok_pl">Змінити мову</string>
-    <string name="rta_dialog_cancel_pl">Змінити мову</string>
-    <string name="rta_dialog_no_pl">Змінити мову</string>
+    <string name="rta_dialog_title_pl">Oceń ten program</string>
+    <string name="rta_dialog_message_pl">Chcesz ocenić program teraz? Twój głos jest dla nas ważna.</string>
+    <string name="rta_dialog_ok_pl">Tak</string>
+    <string name="rta_dialog_cancel_pl">Później</string>
+    <string name="rta_dialog_no_pl">Nie, dziękuję</string>
+    <string name="turn_gps_pl">Proszę włączyć GPS</string>
     <!-- English -->
     <string name="add_place_string_en">Click here to add new place</string>
     <string name="dialog_title_string_en">Don\'t close application</string>
@@ -77,9 +79,10 @@
     <string name="action_settings">Settings</string>
     <string name="change_view_en">Change view of map</string>
 	<string name="change_language_en">Change language</string>
-	<string name="rta_dialog_title_en">Змінити мову</string>
-    <string name="rta_dialog_message_en">Змінити мову</string>
-    <string name="rta_dialog_ok_en">Змінити мову</string>
-    <string name="rta_dialog_cancel_en">Змінити мову</string>
-    <string name="rta_dialog_no_en">Змінити мову</string>
+	<string name="rta_dialog_title_en">Rate</string>
+    <string name="rta_dialog_message_en">Do you want to rate the program now? Your vote is important for us. </string>
+    <string name="rta_dialog_ok_en">Yes</string>
+    <string name="rta_dialog_cancel_en">Not now</string>
+    <string name="rta_dialog_no_en">No, thanks</string>
+    <string name="turn_gps_en">Please, turn on GPS</string>
 </resources>

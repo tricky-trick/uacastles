@@ -30,10 +30,12 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,7 +47,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 @SuppressLint("NewApi")
-public class RoutActivity extends Activity {
+public class RoutActivity extends FragmentActivity  {
 
 	DataBaseHelper myDbHelper;
 	LatLng myCoord = null;
@@ -272,15 +274,17 @@ public class RoutActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		setContentView(R.layout.activity_rout);
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
+			setContentView(R.layout.activity_rout);
 			AsyncMaps maps = new AsyncMaps();
 			maps.execute();
-			ActionBar bar = getActionBar();
-			bar.setDisplayHomeAsUpEnabled(true);
+			if (Build.VERSION.SDK_INT >= 15) {
+				ActionBar bar = getActionBar();
+				bar.setDisplayHomeAsUpEnabled(true);
+			}
 		} else {
 			Toast toast = Toast.makeText(
 					getApplicationContext(),

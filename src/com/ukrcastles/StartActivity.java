@@ -1,10 +1,15 @@
 package com.ukrcastles;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -30,6 +35,7 @@ public class StartActivity extends Activity {
 	SQLiteDatabase db;
 	DataBaseHelper myDbHelper;
 	SharedPreferences prefs;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,11 +46,38 @@ public class StartActivity extends Activity {
 		buttonPlaces = (Button) findViewById(R.id.place);
 
 		buttonMap.setText(getResources().getIdentifier(
-				"start_button_map" + prefix, "string",
-				getPackageName()));
+				"start_button_map" + prefix, "string", getPackageName()));
 		buttonPlaces.setText(getResources().getIdentifier(
-				"start_button_places" + prefix, "string",
-				getPackageName()));
+				"start_button_places" + prefix, "string", getPackageName()));
+		LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		boolean statusOfGPS = manager
+				.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		if (statusOfGPS != true) {
+			enableGpsModal();
+		}
+	}
+
+	private void enableGpsModal() {
+		AlertDialog dialog = new AlertDialog.Builder(this)
+				.setMessage(
+						getString(getResources()
+								.getIdentifier("turn_gps" + prefix, "string",
+										getPackageName())))
+				.setPositiveButton(android.R.string.ok, new OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+						boolean statusOfGPS = manager
+								.isProviderEnabled(LocationManager.GPS_PROVIDER);
+							if (statusOfGPS == true) {
+								dialog.dismiss();
+							} else {
+								enableGpsModal();
+							}
+					}
+				}).create();
+		dialog.show();
 	}
 
 	public void startPlace(View v) {
@@ -86,7 +119,7 @@ public class StartActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -95,7 +128,7 @@ public class StartActivity extends Activity {
 		// Show a dialog if criteria is satisfied
 		RateThisApp.showRateDialogIfNeeded(this);
 	}
-	
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
@@ -107,8 +140,8 @@ public class StartActivity extends Activity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_start, container,
-					false);
+			View rootView = inflater.inflate(R.layout.fragment_start,
+					container, false);
 			return rootView;
 		}
 	}

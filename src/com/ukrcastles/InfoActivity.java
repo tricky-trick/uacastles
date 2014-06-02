@@ -33,6 +33,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
@@ -55,11 +56,14 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_info);
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
-			ActionBar bar = getActionBar();
-			bar.setDisplayHomeAsUpEnabled(true);
+			if (Build.VERSION.SDK_INT >= 15) {
+				ActionBar bar = getActionBar();
+				bar.setDisplayHomeAsUpEnabled(true);
+			}
 			Intent intent = getIntent();
 			String title = intent.getStringExtra("title");
 			DataBaseHelper myDbHelper = new DataBaseHelper(InfoActivity.this);
@@ -239,7 +243,7 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
@@ -256,12 +260,20 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 			return rootView;
 		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.menu_rout, menu);
-	    return super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_rout, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	public void goToMap(View v) {
+		if (Build.VERSION.SDK_INT <= 15) {
+			Intent i = new Intent(InfoActivity.this, RoutActivity.class);
+			i.putExtra("title", textTitle.getText());
+			startActivity(i);
+		}
 	}
 
 }
