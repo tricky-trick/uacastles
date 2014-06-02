@@ -268,12 +268,12 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	public void goToMap(View v) {
-		if (Build.VERSION.SDK_INT <= 15) {
-			Intent i = new Intent(InfoActivity.this, RoutActivity.class);
-			i.putExtra("title", textTitle.getText());
-			startActivity(i);
-		}
-	}
+//	public void goToMap(View v) {
+//		if (Build.VERSION.SDK_INT <= 15) {
+//			Intent i = new Intent(InfoActivity.this, RoutActivity.class);
+//			i.putExtra("title", textTitle.getText());
+//			startActivity(i);
+//		}
+//	}
 
 }

@@ -32,6 +32,7 @@ public class StartActivity extends Activity {
 	Button buttonPlaces;
 	String prefix;
 	private static final int NEW_MENU_ID = Menu.FIRST + 1;
+	private static final int ABOUT_MENU_ID = Menu.FIRST + 2;
 	SQLiteDatabase db;
 	DataBaseHelper myDbHelper;
 	SharedPreferences prefs;
@@ -101,6 +102,12 @@ public class StartActivity extends Activity {
 				0,
 				getString(getResources().getIdentifier(
 						"change_language" + prefix, "string", getPackageName())));
+		menu.add(
+				0,
+				ABOUT_MENU_ID,
+				0,
+				getString(getResources().getIdentifier(
+						"about_menu" + prefix, "string", getPackageName())));
 		return true;
 	}
 
@@ -113,6 +120,14 @@ public class StartActivity extends Activity {
 			editor.putString("prefix", "");
 			editor.commit();
 			Intent i = new Intent(StartActivity.this, MainActivity.class);
+			startActivity(i);
+		}
+		case ABOUT_MENU_ID: {
+			prefs = PreferenceManager.getDefaultSharedPreferences(this);
+			Editor editor = prefs.edit();
+			editor.putString("prefix", "");
+			editor.commit();
+			Intent i = new Intent(StartActivity.this, AboutActivity.class);
 			startActivity(i);
 		}
 		default:

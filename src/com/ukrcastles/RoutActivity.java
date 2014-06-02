@@ -11,6 +11,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -100,8 +101,8 @@ public class RoutActivity extends FragmentActivity  {
 					// Get a handle to the Map Fragment
 					String coordinates = "";
 					if (map == null) {
-						map = ((MapFragment) getFragmentManager()
-								.findFragmentById(R.id.map)).getMap();
+						map = ((SupportMapFragment) getSupportFragmentManager()
+								.findFragmentById(R.id.mapView)).getMap();
 						map.setMyLocationEnabled(true);
 					}
 					gpsTracker = new GPSTracker(RoutActivity.this);
