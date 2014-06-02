@@ -26,40 +26,34 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		Gallery gallery = (Gallery) findViewById(R.id.gallery1);
-		gallery.setSpacing(1);
-		gallery.setAdapter(new GalleryImageAdapter(this));
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		if (!prefs.getString("prefix", "").equals("")) {
 			if (Build.VERSION.SDK_INT >= 15) {
 				Intent i = new Intent(MainActivity.this, StartActivity.class);
 				startActivity(i, savedInstanceState);
 			}
-		} else {
-			// clicklistener for Gallery
-			gallery.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView<?> parent, View v,
-						int position, long id) {
-					// TODO Auto-generated method stub
-					if (position == 0) {
-						updateValue("_ua");
-						Intent i = new Intent(MainActivity.this,
-								StartActivity.class);
-						startActivity(i);
-					} else if (position == 1) {
-						updateValue("_pl");
-						Intent i = new Intent(MainActivity.this,
-								StartActivity.class);
-						startActivity(i);
-					} else if (position == 2) {
-						updateValue("_en");
-						Intent i = new Intent(MainActivity.this,
-								StartActivity.class);
-						startActivity(i);
-					}
-				}
-			});
-		}
+		} 
+	}
+	
+	public void langUa(View v){
+		updateValue("_ua");
+		Intent i = new Intent(MainActivity.this,
+				StartActivity.class);
+		startActivity(i);
+	}
+	
+	public void langPl(View v){
+		updateValue("_pl");
+		Intent i = new Intent(MainActivity.this,
+				StartActivity.class);
+		startActivity(i);
+	}
+	
+	public void langEn(View v){
+		updateValue("_en");
+		Intent i = new Intent(MainActivity.this,
+				StartActivity.class);
+		startActivity(i);
 	}
 
 	private void updateValue(String val) {
