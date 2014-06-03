@@ -44,8 +44,7 @@
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY" 
-            android:onClick="goToMap"/>
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/textView1"
