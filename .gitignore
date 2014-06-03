@@ -11,3 +11,5 @@ a.settings/
 /proguard-project.txt
 /project.properties
 /gen
+
+/lint.xml
