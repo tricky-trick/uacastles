@@ -10,11 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Gallery;
 
-@SuppressWarnings("deprecation")
 @SuppressLint("NewApi")
 public class MainActivity extends Activity {
 

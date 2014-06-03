@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.model.LatLng;
 
 import android.annotation.SuppressLint;
@@ -30,12 +28,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -199,24 +195,12 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
-		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
-			AsyncMaps aMaps = new AsyncMaps();
-			aMaps.execute();
-			if (Build.VERSION.SDK_INT >= 15) {
-				ActionBar bar = getActionBar();
-				bar.setDisplayHomeAsUpEnabled(true);
-			}
-			//Intent i = new Intent(PlacesActivity.this, PlacesActivity.class);
-			//i.putExtra("prefix", prefix);
-		} else {
-			Toast toast = Toast.makeText(
-					getApplicationContext(),
-					getString(getResources().getIdentifier(
-							"no_google_play_services" + prefix, "string",
-							getPackageName())), Toast.LENGTH_SHORT);
-			toast.setGravity(Gravity.CENTER, 0, 0);
-			toast.show();
-			onBackPressed();
+
+		AsyncMaps aMaps = new AsyncMaps();
+		aMaps.execute();
+		if (Build.VERSION.SDK_INT >= 15) {
+			ActionBar bar = getActionBar();
+			bar.setDisplayHomeAsUpEnabled(true);
 		}
 	}
 

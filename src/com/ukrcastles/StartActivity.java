@@ -123,10 +123,6 @@ public class StartActivity extends Activity {
 			startActivity(i);
 		}
 		case ABOUT_MENU_ID: {
-			prefs = PreferenceManager.getDefaultSharedPreferences(this);
-			Editor editor = prefs.edit();
-			editor.putString("prefix", "");
-			editor.commit();
 			Intent i = new Intent(StartActivity.this, AboutActivity.class);
 			startActivity(i);
 		}
