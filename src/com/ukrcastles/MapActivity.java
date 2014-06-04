@@ -25,12 +25,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -342,6 +347,7 @@ public class MapActivity extends FragmentActivity {
 			toast.show();
 			onBackPressed();
 		}
+		enableGpsModal();
 	}
 
 	@Override
@@ -395,6 +401,37 @@ public class MapActivity extends FragmentActivity {
 			View rootView = inflater.inflate(R.layout.fragment_map, container,
 					false);
 			return rootView;
+		}
+	}
+	
+	private void enableGpsModal() {
+		LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		boolean statusOfGPS = manager
+				.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		if (statusOfGPS != true) {
+			AlertDialog dialog = new AlertDialog.Builder(this)
+					.setMessage(
+							getString(getResources().getIdentifier(
+									"turn_gps" + prefix, "string",
+									getPackageName())))
+					.setCancelable(false)
+					.setPositiveButton(android.R.string.ok,
+							new OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+									boolean statusOfGPS = manager
+											.isProviderEnabled(LocationManager.GPS_PROVIDER);
+									if (statusOfGPS == true) {
+										dialog.dismiss();
+									} else {
+										enableGpsModal();
+									}
+								}
+							}).create();
+			dialog.show();
 		}
 	}
 }

@@ -25,7 +25,6 @@ import android.widget.MediaController.MediaPlayerControl;
 import android.widget.TextView;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -38,7 +37,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 @SuppressLint("NewApi")
-public class InfoActivity extends Activity implements MediaPlayerControl {
+public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 
 	TextView textTitle;
 	TextView textDescription;
@@ -144,6 +143,8 @@ public class InfoActivity extends Activity implements MediaPlayerControl {
 			toast.show();
 			onBackPressed();
 		}
+		
+		enableGpsModal(prefix);
 	}
 
 	@Override

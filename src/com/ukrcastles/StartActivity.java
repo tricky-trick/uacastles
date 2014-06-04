@@ -1,15 +1,9 @@
 package com.ukrcastles;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -26,13 +20,13 @@ import android.widget.Button;
  * 
  * @see SystemUiHider
  */
-public class StartActivity extends Activity {
+public class StartActivity extends BaseActivity {
 
 	Button buttonMap;
 	Button buttonPlaces;
 	String prefix;
-	private static final int NEW_MENU_ID = Menu.FIRST + 1;
-	private static final int ABOUT_MENU_ID = Menu.FIRST + 2;
+	private static final int MAIN_MENU_ID = 1001;
+	private static final int ABOUT_MENU_ID = 1005;
 	SQLiteDatabase db;
 	DataBaseHelper myDbHelper;
 	SharedPreferences prefs;
@@ -50,36 +44,10 @@ public class StartActivity extends Activity {
 				"start_button_map" + prefix, "string", getPackageName()));
 		buttonPlaces.setText(getResources().getIdentifier(
 				"start_button_places" + prefix, "string", getPackageName()));
-		LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		boolean statusOfGPS = manager
-				.isProviderEnabled(LocationManager.GPS_PROVIDER);
-		if (statusOfGPS != true) {
-			enableGpsModal();
-		}
+		enableGpsModal(prefix);
 	}
 
-	private void enableGpsModal() {
-		AlertDialog dialog = new AlertDialog.Builder(this)
-				.setMessage(
-						getString(getResources()
-								.getIdentifier("turn_gps" + prefix, "string",
-										getPackageName())))
-				.setPositiveButton(android.R.string.ok, new OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-						boolean statusOfGPS = manager
-								.isProviderEnabled(LocationManager.GPS_PROVIDER);
-							if (statusOfGPS == true) {
-								dialog.dismiss();
-							} else {
-								enableGpsModal();
-							}
-					}
-				}).create();
-		dialog.show();
-	}
+	
 
 	public void startPlace(View v) {
 		Intent i = new Intent(StartActivity.this, PlacesActivity.class);
@@ -98,37 +66,33 @@ public class StartActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 		menu.add(
 				0,
-				NEW_MENU_ID,
+				MAIN_MENU_ID,
 				0,
 				getString(getResources().getIdentifier(
 						"change_language" + prefix, "string", getPackageName())));
 		menu.add(
 				0,
 				ABOUT_MENU_ID,
-				0,
-				getString(getResources().getIdentifier(
-						"about_menu" + prefix, "string", getPackageName())));
+				1,
+				getString(getResources().getIdentifier("about_menu" + prefix,
+						"string", getPackageName())));
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case NEW_MENU_ID: {
+		Intent i;
+		if (item.getItemId() == MAIN_MENU_ID) {
 			prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			Editor editor = prefs.edit();
 			editor.putString("prefix", "");
 			editor.commit();
-			Intent i = new Intent(StartActivity.this, MainActivity.class);
-			startActivity(i);
+			i = new Intent(StartActivity.this, MainActivity.class);
+		} else {
+			i = new Intent(StartActivity.this, AboutActivity.class);
 		}
-		case ABOUT_MENU_ID: {
-			Intent i = new Intent(StartActivity.this, AboutActivity.class);
-			startActivity(i);
-		}
-		default:
-			return super.onOptionsItemSelected(item);
-		}
+		startActivity(i);
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

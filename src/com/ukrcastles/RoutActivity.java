@@ -19,13 +19,17 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -294,6 +298,7 @@ public class RoutActivity extends FragmentActivity  {
 			toast.show();
 			onBackPressed();
 		}
+		enableGpsModal();
 	}
 
 	public boolean isNetworkAvailable() {
@@ -357,6 +362,37 @@ public class RoutActivity extends FragmentActivity  {
 			View rootView = inflater.inflate(R.layout.fragment_rout, container,
 					false);
 			return rootView;
+		}
+	}
+	
+	private void enableGpsModal() {
+		LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		boolean statusOfGPS = manager
+				.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		if (statusOfGPS != true) {
+			AlertDialog dialog = new AlertDialog.Builder(this)
+					.setMessage(
+							getString(getResources().getIdentifier(
+									"turn_gps" + prefix, "string",
+									getPackageName())))
+					.setCancelable(false)
+					.setPositiveButton(android.R.string.ok,
+							new OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+									boolean statusOfGPS = manager
+											.isProviderEnabled(LocationManager.GPS_PROVIDER);
+									if (statusOfGPS == true) {
+										dialog.dismiss();
+									} else {
+										enableGpsModal();
+									}
+								}
+							}).create();
+			dialog.show();
 		}
 	}
 }

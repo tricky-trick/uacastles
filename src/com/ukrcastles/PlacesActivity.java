@@ -16,7 +16,6 @@ import com.google.android.gms.maps.model.LatLng;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -36,7 +35,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 @SuppressLint("NewApi")
-public class PlacesActivity extends Activity implements OnItemClickListener {
+public class PlacesActivity extends BaseActivity implements OnItemClickListener {
 
 	DataBaseHelper myDbHelper;
 	LatLng myCoord = null;
@@ -202,6 +201,7 @@ public class PlacesActivity extends Activity implements OnItemClickListener {
 			ActionBar bar = getActionBar();
 			bar.setDisplayHomeAsUpEnabled(true);
 		}
+		enableGpsModal(prefix);
 	}
 
 	@Override

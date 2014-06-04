@@ -1,6 +1,5 @@
 package com.ukrcastles;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +8,7 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends BaseActivity {
 
 	String prefix;
 	TextView message;
@@ -40,6 +39,8 @@ public class AboutActivity extends Activity {
 
 		messageSecond.setText(getResources().getIdentifier(
 				"about_second" + prefix, "string", getPackageName()));
+		
+		enableGpsModal(prefix);
 
 	}
 	

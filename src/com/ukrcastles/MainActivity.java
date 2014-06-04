@@ -31,6 +31,10 @@ public class MainActivity extends Activity {
 		} 
 	}
 	
+	@Override
+	public void onBackPressed() {
+	}
+	
 	public void langUa(View v){
 		updateValue("_ua");
 		Intent i = new Intent(MainActivity.this,
