@@ -54,6 +54,7 @@
     <string name="description_info_pl">Informacja pochodzi ze www.7chudes.in.ua</string>
     <string name="touch_here_pl">Dotknij tutaj</string>
     <string name="change_view_pl">Zmień widok mapy</string>
+    <string name="change_language_pl">Zmiana języka</string>
     <string name="rta_dialog_title_pl">Oceń ten program</string>
     <string name="rta_dialog_message_pl">Chcesz ocenić program teraz? Twój głos jest dla nas ważna.</string>
     <string name="rta_dialog_ok_pl">Tak</string>

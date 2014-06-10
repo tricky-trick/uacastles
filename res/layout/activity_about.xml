@@ -29,7 +29,7 @@
             android:layout_marginRight="10dp"
             android:text=""
             android:textColor="#FFFFFF"
-            android:textSize="35sp" />
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/textViewAboutLink"
@@ -42,7 +42,7 @@
             android:autoLink="email"
             android:text="uacastles@gmail.com"
             android:textColor="#FFFFFF"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textViewAboutSecond"
@@ -54,7 +54,7 @@
             android:layout_marginRight="10dp"
             android:text=""
             android:textColor="#FFFFFF"
-            android:textSize="35sp" />
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/textViewAboutSecondLink"
@@ -64,10 +64,23 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:autoLink="web"
             android:text=""
             android:textColor="#FFFFFF"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textViewVersion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewAboutSecondLink"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:paddingBottom="3dip"
+            android:gravity="center"
+            android:text="ss"
+            android:textColor="#FFFFFF" />
     </RelativeLayout>
 
 </ScrollView>

@@ -3,6 +3,7 @@ package com.ukrcastles;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Build;
 import android.preference.PreferenceManager;
@@ -17,6 +18,7 @@ public class AboutActivity extends BaseActivity {
 	TextView email;
 	TextView messageSecond;
 	TextView uri;
+	TextView version;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,12 @@ public class AboutActivity extends BaseActivity {
 		email = (TextView) findViewById(R.id.textViewAboutLink);
 		messageSecond = (TextView) findViewById(R.id.textViewAboutSecond);
 		uri = (TextView) findViewById(R.id.textViewAboutSecondLink);
-
+		version = (TextView) findViewById(R.id.textViewVersion);
+		
+		try {
+			version.setText("v " + getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+		} catch (NameNotFoundException e) {
+		}
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");

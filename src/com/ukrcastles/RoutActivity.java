@@ -114,6 +114,7 @@ public class RoutActivity extends FragmentActivity {
 						map.setMyLocationEnabled(true);
 					}
 					gpsTracker = new GPSTracker(RoutActivity.this);
+
 					if (gpsTracker.canGetLocation()) {
 						stringLatitude = String.valueOf(gpsTracker.latitude);
 						stringLongitude = String.valueOf(gpsTracker.longitude);
@@ -145,35 +146,24 @@ public class RoutActivity extends FragmentActivity {
 							.split(",")[0]), Double.parseDouble(coordinates
 							.split(",")[1]));
 
-					if (isNetworkAvailable()) {
+					// Walking
+					GMapV2Direction mdDist = new GMapV2Direction();
+					Document doc_dist = mdDist.getDocument(myCoord,
+							myNearCoord, type);
+					ArrayList<LatLng> directionPointDist = mdDist
+							.getDirection(doc_dist);
+					distance = mdDist.getDistanceText(doc_dist);
+					time = mdDist.getDurationText(doc_dist);
+					rectLineDist = new PolylineOptions().width(6).color(
+							Color.GREEN);
 
-						// Walking
-						GMapV2Direction mdDist = new GMapV2Direction();
-						Document doc_dist = mdDist.getDocument(myCoord,
-								myNearCoord, type);
-						ArrayList<LatLng> directionPointDist = mdDist
-								.getDirection(doc_dist);
-						distance = mdDist.getDistanceText(doc_dist);
-						time = mdDist.getDurationText(doc_dist);
-						rectLineDist = new PolylineOptions().width(6).color(
-								Color.GREEN);
-
-						for (int i = 0; i < directionPointDist.size(); i++) {
-							rectLineDist.add(directionPointDist.get(i));
-						}
-
-					} else {
-						Toast toast = Toast.makeText(
-								getApplicationContext(),
-								getString(getResources().getIdentifier(
-										"no_inet_string" + prefix, "string",
-										getPackageName())), Toast.LENGTH_SHORT);
-						toast.setGravity(Gravity.CENTER, 0, 0);
-						toast.show();
+					for (int i = 0; i < directionPointDist.size(); i++) {
+						rectLineDist.add(directionPointDist.get(i));
 					}
 
 				}
 			});
+
 			return null;
 		}
 
@@ -286,23 +276,39 @@ public class RoutActivity extends FragmentActivity {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
-		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
-			setContentView(R.layout.activity_rout);
-			AsyncMaps maps = new AsyncMaps();
-			maps.execute();
-			if (Build.VERSION.SDK_INT >= 15) {
-				ActionBar bar = getActionBar();
-				bar.setDisplayHomeAsUpEnabled(true);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (isNetworkAvailable()) {
+			if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
+				setContentView(R.layout.activity_rout);
+				AsyncMaps maps = new AsyncMaps();
+				maps.execute();
+				if (Build.VERSION.SDK_INT >= 15) {
+					ActionBar bar = getActionBar();
+					bar.setDisplayHomeAsUpEnabled(true);
+				}
+			} else {
+				Toast toast = Toast.makeText(
+						getApplicationContext(),
+						getString(getResources().getIdentifier(
+								"no_google_play_services" + prefix, "string",
+								getPackageName())), Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER, 0, 0);
+				toast.show();
+				onBackPressed();
 			}
 		} else {
 			Toast toast = Toast.makeText(
 					getApplicationContext(),
 					getString(getResources().getIdentifier(
-							"no_google_play_services" + prefix, "string",
+							"no_inet_string" + prefix, "string",
 							getPackageName())), Toast.LENGTH_SHORT);
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
-			onBackPressed();
 		}
 		enableGpsModal();
 	}
