@@ -71,33 +71,27 @@ public class MapActivity extends FragmentActivity {
 	Marker marker;
 	String prefix;
 	private static final int NEW_MENU_ID = Menu.FIRST + 1;
-
+	String country;
+	String city;
+	String addressLine;
+	String stringLatitude;
+	String stringLongitude;
+	
 	public int setMyLocation() {
 		gpsTracker = new GPSTracker(MapActivity.this);
 		if (gpsTracker.canGetLocation()) {
-			String stringLatitude = String.valueOf(gpsTracker.latitude);
-			String stringLongitude = String.valueOf(gpsTracker.longitude);
+			stringLatitude = String.valueOf(gpsTracker.latitude);
+			stringLongitude = String.valueOf(gpsTracker.longitude);
 			if (stringLatitude.equals("0.0")) {
 				stringLatitude = "49.853192";
 				stringLongitude = "24.024499";
 			}
-			String country = gpsTracker.getCountryName(MapActivity.this);
-			String city = gpsTracker.getLocality(MapActivity.this);
-			String addressLine = gpsTracker.getAddressLine(MapActivity.this);
+			country = gpsTracker.getCountryName(MapActivity.this);
+			city = gpsTracker.getLocality(MapActivity.this);
+			addressLine = gpsTracker.getAddressLine(MapActivity.this);
 			// map.clear();
 			myCoord = new LatLng(Double.parseDouble(stringLatitude),
 					Double.parseDouble(stringLongitude));
-			map.addMarker(new MarkerOptions()
-					.title(getString(getResources().getIdentifier(
-							"you_here_string" + prefix, "string",
-							getPackageName())))
-					.snippet(
-							country + ", " + city + "\n" + addressLine + "\n"
-									+ stringLatitude + ", " + stringLongitude)
-					.position(myCoord));
-
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(myCoord, 8));
-
 		}
 		return 1;
 	}
@@ -315,6 +309,17 @@ public class MapActivity extends FragmentActivity {
 			 * + prefix, "string", getPackageName()))).position(point)
 			 * .draggable(true)); } });
 			 */
+			
+			map.addMarker(new MarkerOptions()
+			.title(getString(getResources().getIdentifier(
+					"you_here_string" + prefix, "string",
+					getPackageName())))
+			.snippet(
+					country + ", " + city + "\n" + addressLine + "\n"
+							+ stringLatitude + ", " + stringLongitude)
+			.position(myCoord));
+
+	map.moveCamera(CameraUpdateFactory.newLatLngZoom(myCoord, 8));
 		}
 	}
 

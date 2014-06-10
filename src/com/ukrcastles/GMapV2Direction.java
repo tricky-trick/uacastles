@@ -22,6 +22,7 @@ import android.annotation.SuppressLint;
 import android.os.StrictMode;
 import android.util.Log;
 
+@SuppressLint("NewApi")
 public class GMapV2Direction {
     public final static String MODE_DRIVING = "driving";
     public final static String MODE_WALKING = "walking";
@@ -58,7 +59,7 @@ public class GMapV2Direction {
         return null;
     }
 
-    public String getDurationText (Document doc) {
+	public String getDurationText (Document doc) {
         NodeList nl1 = doc.getElementsByTagName("duration");
         Node node1 = nl1.item(nl1.getLength() - 1);
         NodeList nl2 = node1.getChildNodes();

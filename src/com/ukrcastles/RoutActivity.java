@@ -50,7 +50,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 @SuppressLint("NewApi")
-public class RoutActivity extends FragmentActivity  {
+public class RoutActivity extends FragmentActivity {
 
 	DataBaseHelper myDbHelper;
 	LatLng myCoord = null;
@@ -67,6 +67,12 @@ public class RoutActivity extends FragmentActivity  {
 	private String type = "driving";
 	private String distance;
 	private String time;
+	String country;
+	String city;
+	String addressLine;
+	String stringLatitude;
+	String stringLongitude;
+	PolylineOptions rectLineDist;
 
 	private class AsyncMaps extends AsyncTask<String, Void, Integer> {
 		@Override
@@ -109,36 +115,20 @@ public class RoutActivity extends FragmentActivity  {
 					}
 					gpsTracker = new GPSTracker(RoutActivity.this);
 					if (gpsTracker.canGetLocation()) {
-						String stringLatitude = String
-								.valueOf(gpsTracker.latitude);
-						String stringLongitude = String
-								.valueOf(gpsTracker.longitude);
+						stringLatitude = String.valueOf(gpsTracker.latitude);
+						stringLongitude = String.valueOf(gpsTracker.longitude);
 						if (stringLatitude.equals("0.0")) {
 							stringLatitude = "49.853192";
 							stringLongitude = "24.024499";
 						}
-						String country = gpsTracker
-								.getCountryName(RoutActivity.this);
-						String city = gpsTracker.getLocality(RoutActivity.this);
-						String addressLine = gpsTracker
+						country = gpsTracker.getCountryName(RoutActivity.this);
+						city = gpsTracker.getLocality(RoutActivity.this);
+						addressLine = gpsTracker
 								.getAddressLine(RoutActivity.this);
 						map.clear();
 						myCoord = new LatLng(
 								Double.parseDouble(stringLatitude), Double
 										.parseDouble(stringLongitude));
-						map.addMarker(new MarkerOptions()
-								.title(getString(getResources().getIdentifier(
-										"you_here_string" + prefix, "string",
-										getPackageName())))
-								.snippet(
-										country + ", " + city + "\n"
-												+ addressLine + "\n"
-												+ stringLatitude + ", "
-												+ stringLongitude)
-								.position(myCoord));
-
-						map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-								myCoord, 8));
 
 					}
 					db = myDbHelper.getWritableDatabase();
@@ -165,14 +155,12 @@ public class RoutActivity extends FragmentActivity  {
 								.getDirection(doc_dist);
 						distance = mdDist.getDistanceText(doc_dist);
 						time = mdDist.getDurationText(doc_dist);
-						PolylineOptions rectLineDist = new PolylineOptions()
-								.width(6).color(Color.GREEN);
+						rectLineDist = new PolylineOptions().width(6).color(
+								Color.GREEN);
 
 						for (int i = 0; i < directionPointDist.size(); i++) {
 							rectLineDist.add(directionPointDist.get(i));
 						}
-
-						map.addPolyline(rectLineDist);
 
 					} else {
 						Toast toast = Toast.makeText(
@@ -193,7 +181,12 @@ public class RoutActivity extends FragmentActivity  {
 		protected void onPostExecute(Integer i) {
 			map.addMarker(new MarkerOptions()
 					.title(title)
-					.snippet(distance + " - " + time + "\n\n(" + getString(getResources().getIdentifier(
+					.snippet(
+							distance
+									+ " - "
+									+ time
+									+ "\n\n("
+									+ getString(getResources().getIdentifier(
 											"touch_here" + prefix, "string",
 											getPackageName())) + ")")
 					.anchor(0.0f, 1.0f)
@@ -269,6 +262,19 @@ public class RoutActivity extends FragmentActivity  {
 			 * R.string.add_place_string)).position(point) .draggable(true)); }
 			 * });
 			 */
+			map.addMarker(new MarkerOptions()
+					.title(getString(getResources().getIdentifier(
+							"you_here_string" + prefix, "string",
+							getPackageName())))
+					.snippet(
+							country + ", " + city + "\n" + addressLine + "\n"
+									+ stringLatitude + ", " + stringLongitude)
+					.position(myCoord));
+
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(myCoord, 8));
+
+			map.addPolyline(rectLineDist);
+
 		}
 	}
 
@@ -364,7 +370,7 @@ public class RoutActivity extends FragmentActivity  {
 			return rootView;
 		}
 	}
-	
+
 	private void enableGpsModal() {
 		LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		boolean statusOfGPS = manager

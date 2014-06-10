@@ -4,13 +4,13 @@
     <!-- Ukrainian -->
     <string name="app_name">UA Castles</string>
     <string name="title_activity_start">UA Castles</string>
+    <string name="title_activity_main">UA Castles</string>
     <string name="title_activity_info"></string>
     <string name="title_activity_places"></string>
     <string name="title_activity_rout"></string>
     <string name="title_activity_map"></string>
     <string name="title_activity_add"></string>
     <string name="title_activity_about"></string>
-    <string name="title_activity_language"></string>
     <string name="add_place_string_ua">Клікніть сюди, щоб додати місце</string>
     <string name="dialog_title_string_ua">Не закривайте програму</string>
     <string name="you_here_string_ua">Ви тут</string>
@@ -54,7 +54,6 @@
     <string name="description_info_pl">Informacja pochodzi ze www.7chudes.in.ua</string>
     <string name="touch_here_pl">Dotknij tutaj</string>
     <string name="change_view_pl">Zmień widok mapy</string>
-    <string name="change_language_pl">Zmiana języka</string>
     <string name="rta_dialog_title_pl">Oceń ten program</string>
     <string name="rta_dialog_message_pl">Chcesz ocenić program teraz? Twój głos jest dla nas ważna.</string>
     <string name="rta_dialog_ok_pl">Tak</string>
@@ -78,10 +77,8 @@
     <string name="add_descr_en">Description:</string>
     <string name="add_done_en">Done</string>
     <string name="add_thanks_en">Thank You!</string>
-    <string name="title_activity_language_en">LanguageActivity</string>
     <string name="description_info_en">Information is taken from www.7chudes.in.ua</string>
     <string name="touch_here_en">Touch here</string>
-    <string name="title_activity_browser">BrowserActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="change_view_en">Change view of map</string>
