@@ -338,10 +338,30 @@ public class RoutActivity extends FragmentActivity {
 		AsyncMaps maps = new AsyncMaps();
 		switch (item.getItemId()) {
 		case R.id.action_drive:
-			maps.execute("driving");
+			if (isNetworkAvailable()) {
+				maps.execute("driving");
+			} else {
+				Toast toast = Toast.makeText(
+						getApplicationContext(),
+						getString(getResources().getIdentifier(
+								"no_inet_string" + prefix, "string",
+								getPackageName())), Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER, 0, 0);
+				toast.show();
+			}
 			return true;
 		case R.id.action_walk:
-			maps.execute("walking");
+			if (isNetworkAvailable()) {
+				maps.execute("walking");
+			} else {
+				Toast toast = Toast.makeText(
+						getApplicationContext(),
+						getString(getResources().getIdentifier(
+								"no_inet_string" + prefix, "string",
+								getPackageName())), Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER, 0, 0);
+				toast.show();
+			}
 			return true;
 		case android.R.id.home:
 			Intent intent = new Intent(this, StartActivity.class);
