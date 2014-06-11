@@ -332,14 +332,13 @@ public class MapActivity extends FragmentActivity {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		prefix = prefs.getString("prefix", "");
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
 			setContentView(R.layout.activity_map);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
 			AsyncMaps maps = new AsyncMaps();
 			maps.execute();
 
