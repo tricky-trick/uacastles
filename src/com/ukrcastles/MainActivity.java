@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public void onBackPressed() {
+		super.onBackPressed();
 	}
 	
 	public void langUa(View v){

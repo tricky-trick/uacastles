@@ -74,12 +74,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewAboutSecondLink"
             android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
             android:paddingBottom="3dip"
             android:gravity="center"
-            android:text="ss"
+            android:text="Version"
             android:textColor="#FFFFFF" />
     </RelativeLayout>
 
