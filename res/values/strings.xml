@@ -29,7 +29,7 @@
     <string name="change_view_ua">Змінити вигляд карти</string>
     <string name="change_language_ua">Змінити мову</string>
     <string name="rta_dialog_title_ua">Оцінити програму</string>
-    <string name="rta_dialog_message_ua">Бажаєте оцінити програму зараз? Ваш голос для нашс є важливий.</string>
+    <string name="rta_dialog_message_ua">Бажаєте оцінити програму зараз? Ваш голос для нас є важливий.</string>
     <string name="rta_dialog_ok_ua">Так</string>
     <string name="rta_dialog_cancel_ua">Не зараз</string>
     <string name="rta_dialog_no_ua">Ні, дякую</string>

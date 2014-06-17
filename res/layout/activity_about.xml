@@ -64,7 +64,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:text=""
+            android:autoLink="web"
+            android:text="http://vk.com/public72733704"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
