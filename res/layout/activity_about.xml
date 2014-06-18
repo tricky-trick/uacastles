@@ -65,7 +65,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:autoLink="web"
-            android:text="http://vk.com/public72733704"
+            android:text="http://vk.com/public72733704 , https://www.facebook.com/EUcastles"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
