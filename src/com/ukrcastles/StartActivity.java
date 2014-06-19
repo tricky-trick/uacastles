@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ public class StartActivity extends BaseActivity {
 	String prefix;
 	private static final int MAIN_MENU_ID = 1001;
 	private static final int ABOUT_MENU_ID = 1005;
+	private static final int APP_MENU_ID = 1010;
 	SQLiteDatabase db;
 	DataBaseHelper myDbHelper;
 	SharedPreferences prefs;
@@ -47,8 +50,6 @@ public class StartActivity extends BaseActivity {
 		enableGpsModal(prefix);
 	}
 
-	
-
 	public void startPlace(View v) {
 		Intent i = new Intent(StartActivity.this, PlacesActivity.class);
 		i.putExtra("prefix", prefix);
@@ -63,7 +64,15 @@ public class StartActivity extends BaseActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
+		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		MenuInflater inflater = getMenuInflater();
+		if(prefs.getString("isNew", "1").equals("0"))
+		{
+			inflater.inflate(R.menu.menu_app, menu);	
+		}
+		else{
+			inflater.inflate(R.menu.menu_app_notif, menu);
+		}
 		menu.add(
 				0,
 				MAIN_MENU_ID,
@@ -76,7 +85,7 @@ public class StartActivity extends BaseActivity {
 				1,
 				getString(getResources().getIdentifier("about_menu" + prefix,
 						"string", getPackageName())));
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -88,9 +97,15 @@ public class StartActivity extends BaseActivity {
 			editor.putString("prefix", "");
 			editor.commit();
 			i = new Intent(StartActivity.this, MainActivity.class);
-		} else {
+		} 
+		else if (item.getItemId() == ABOUT_MENU_ID){
 			i = new Intent(StartActivity.this, AboutActivity.class);
-		}
+		}else {
+			i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Denys+Zaiats"));
+			Editor editor = prefs.edit();
+			editor.putString("isNew", "0");
+			editor.commit();
+		} 
 		startActivity(i);
 		return super.onOptionsItemSelected(item);
 	}
