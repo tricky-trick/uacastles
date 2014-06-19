@@ -276,7 +276,20 @@ public class RoutActivity extends FragmentActivity {
 
 			map.moveCamera(CameraUpdateFactory.newLatLngZoom(myCoord, 8));
 
-			map.addPolyline(rectLineDist);
+			if (isNetworkAvailable()) {
+				try {
+					map.addPolyline(rectLineDist);
+				} catch (Exception ex) {
+				}
+			} else {
+				Toast toast = Toast.makeText(
+						getApplicationContext(),
+						getString(getResources().getIdentifier(
+								"no_inet_string" + prefix, "string",
+								getPackageName())), Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.CENTER, 0, 0);
+				toast.show();
+			}
 
 		}
 	}
