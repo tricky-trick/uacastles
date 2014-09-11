@@ -1,6 +1,7 @@
 package com.ukrcastles;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -17,12 +18,14 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
+import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
-import android.widget.Toast;
 import android.widget.MediaController.MediaPlayerControl;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
@@ -36,6 +39,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+@SuppressWarnings("deprecation")
 @SuppressLint("NewApi")
 public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 
@@ -91,7 +95,36 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 			}
 			if (audioFile.contains("null"))
 				audioFile = "audio.mp3";
-			imageView = (ImageView) findViewById(R.id.imageView1);
+			LinkedList<Integer> images = new LinkedList<Integer>();
+			images.add(this.getResources().getIdentifier("drawable/" + image,
+					null, this.getPackageName()));
+			for (int i = 1; i < 10; i++) {
+				try {
+					if (this.getResources().getIdentifier(
+							"drawable/" + image + i, null,
+							this.getPackageName()) != 0) {
+						images.add(this.getResources().getIdentifier(
+								"drawable/" + image + i, null,
+								this.getPackageName()));
+					}
+				} catch (Exception e) {
+				}
+			}
+			Gallery gallery = (Gallery) findViewById(R.id.gallery1);
+			
+			if(images.size() > 1)
+			{
+				TranslateAnimation animation = new TranslateAnimation(0.0f, -50.0f,
+		                0.0f, 0.0f);          //  new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+		        animation.setDuration(1000);  // animation duration 
+		        animation.setRepeatCount(1);  // animation repeat count
+		        animation.setRepeatMode(2); 
+				gallery.startAnimation(animation);
+				gallery.setSelection(1);
+				gallery.setSpacing(2);
+			}
+			
+			gallery.setAdapter(new GalleryImageAdapter(this, images));
 			textTitle = (TextView) findViewById(R.id.textView1);
 			SpannableString spanString = new SpannableString(
 					getString(getResources().getIdentifier(
@@ -108,8 +141,7 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 			// buttonPlay.setBackgroundResource(R.drawable.play);
 			// buttonStop.setBackgroundResource(R.drawable.pause);
 			textDescription = (TextView) findViewById(R.id.textView2);
-			imageView.setImageResource(this.getResources().getIdentifier(
-					"drawable/" + image, null, this.getPackageName()));
+
 			textTitle.setText(title);
 			textDescription.setText(description + "\n\n");
 			textUri.setText(spanString);
