@@ -38,7 +38,7 @@
     <string name="about_message_ua">Дякуємо, що користуєтеся нашою програмою. Надіємося, що вона Вам подобається. Якщо у Вас є відгуки, побажання чи зауваження, то Ви можете написати їх на електронну адресу </string>
     <string name="about_second_ua"> або через соціальні мережі </string>
     <string name="share_ua">Розкажіть друзям</string>
-    <string name="welcome_ua">Звітайте в  </string>
+    <string name="welcome_ua">Звітайте в</string>
     <!-- Polish -->
     <string name="add_place_string_pl">Kliknij tutaj, aby dodać miejsce</string>
     <string name="dialog_title_string_pl">Nie zamykaj programu</string>
@@ -67,7 +67,7 @@
     <string name="about_message_pl">Dziękujemy za korzystanie z naszego oprogramowania. Mamy nadzieję, że сi się spodoba. Jeśli masz jakieś uwagi, sugestie lub komentarze, można się z nami skontaktować przez e-mail </string>
     <string name="about_second_pl"> lub za pośrednictwem sieci społecznych </string>
     <string name="share_pl">Podziel się</string>
-    <string name="welcome_pl">Odwiedź  </string>
+    <string name="welcome_pl">Odwiedź</string>
     <!-- English -->
     <string name="add_place_string_en">Click here to add new place</string>
     <string name="dialog_title_string_en">Don\'t close application</string>
@@ -98,7 +98,7 @@
 	<string name="about_message_en">Thank you for using our application. We hope you enjoy. If you have any comments or suggestions suggestions, you can contact us by e-mail </string>
 	<string name="about_second_en"> or via social network </string>
 	<string name="share_en">Tell friends</string>
-	<string name="welcome_en">Welcome to  </string>
+	<string name="welcome_en">Welcome to</string>
 	<!-- Other -->
 	<string name="facebook_app_id">476454735826904</string>
 </resources>
