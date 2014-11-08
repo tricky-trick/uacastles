@@ -17,3 +17,7 @@ a.settings/
 
 .idea
 
+
+*.prefs
+
+*.iml
