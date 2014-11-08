@@ -10,6 +10,10 @@ a.settings/
 /ic_launcher-web.png
 /proguard-project.txt
 /project.properties
+/local.properties
 /gen
 
 /lint.xml
+
+.idea
+
