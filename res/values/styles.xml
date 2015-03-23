@@ -2,7 +2,9 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
+
     -->
     <style name="AppBaseTheme">
         <!--
@@ -20,8 +22,12 @@
     
     <style name="CustomTheme">
         <item name="android:fitsSystemWindows">true</item>
-        <item name="android:windowBackground">@color/clue_theme</item>
-        <item name="android:colorBackground">@color/clue_theme</item>
+        <item name="android:windowBackground">@drawable/bg_myreaction</item>
+    </style>
+
+    <style name="CustomTheme.ActionBar.Text" parent="@style/Theme.AppCompat.Light">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

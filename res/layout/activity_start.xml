@@ -5,8 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#00CCFF" >
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imageView1"
@@ -35,7 +34,7 @@
             android:onClick="startLocalMap"
             android:paddingBottom="10dip"
             android:paddingTop="10dip"
-            android:textColor="#00CCFF"
+            android:textColor="#01cbcd"
             android:textSize="40dp"
             android:textStyle="bold" />
 
@@ -55,7 +54,7 @@
             android:onClick="startPlace"
             android:paddingBottom="10dip"
             android:paddingTop="10dip"
-            android:textColor="#00CCFF"
+            android:textColor="#01cbcd"
             android:textSize="40dp"
             android:textStyle="bold" />
 

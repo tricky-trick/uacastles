@@ -17,7 +17,11 @@
         android:paddingLeft="5dp"
         android:textColor="#ffffff"
         android:textSize="25dp" 
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:shadowColor="@color/black_overlay"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="2"/>
     
     <!-- <TextView
         android:id="@+id/dist"
@@ -36,6 +40,11 @@
         android:layout_toRightOf="@+id/icon"
         android:paddingLeft="5dp"
         android:textColor="#CC0033"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:shadowColor="@color/black_overlay"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="2"
+        android:textStyle="bold" />
     
 </RelativeLayout>

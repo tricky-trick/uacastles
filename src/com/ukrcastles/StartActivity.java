@@ -14,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,8 +32,9 @@ public class StartActivity extends BaseActivity {
 	SQLiteDatabase db;
 	DataBaseHelper myDbHelper;
 	SharedPreferences prefs;
+    private Animation animation;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start);
@@ -46,9 +49,7 @@ public class StartActivity extends BaseActivity {
 				"start_button_places" + prefix, "string", getPackageName()));
 		enableGpsModal(prefix);
 		
-		ScaleAnimation animation = new ScaleAnimation(0.0f, 1.0f,
-                0.0f, 1.0f);
-        animation.setDuration(2000); 
+        animation = AnimationUtils.loadAnimation(this, R.anim.animation);
         image.setAnimation(animation);
 	}
 

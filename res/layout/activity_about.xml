@@ -5,8 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#00CCFF" >
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageViewAbout"
@@ -40,8 +39,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:autoLink="email"
+            android:textColorLink="#FFFFFF"
             android:text="uacastles@gmail.com"
-            android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
         <TextView
@@ -66,7 +65,7 @@
             android:layout_marginRight="10dp"
             android:autoLink="web"
             android:text="http://vk.com/public72733704 , https://www.facebook.com/EUcastles"
-            android:textColor="#FFFFFF"
+            android:textColorLink="#FFFFFF"
             android:textSize="20sp" />
 
         <TextView

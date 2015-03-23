@@ -89,9 +89,9 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 		linearBar.setBackgroundResource(R.drawable.bar_gradient);
 		
 		if (Build.VERSION.SDK_INT >= 11) {
-			linearBar.setAlpha((float) 0.8);
-			relBar.setAlpha((float) 0.8);
-			zoomBar.setAlpha((float) 0.6);
+			linearBar.setAlpha((float) 0.9);
+			relBar.setAlpha((float) 0.9);
+			zoomBar.setAlpha((float) 0.7);
 		}
 
 		// Add Bar to library

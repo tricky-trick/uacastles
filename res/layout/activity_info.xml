@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#00CCFF" >
+    android:layout_height="fill_parent">
 
     <ScrollView
         android:id="@+id/ScrollView01"
@@ -71,7 +70,12 @@
                 android:layout_centerHorizontal="true"
                 android:text=""
                 android:textColor="#FFFFFF"
-                android:textSize="35sp" />
+                android:textSize="35sp"
+                android:shadowColor="@color/black_overlay"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="2"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textView2"
@@ -81,7 +85,11 @@
                 android:layout_centerHorizontal="true"
                 android:text=""
                 android:textColor="#FFFFFF"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:shadowColor="@color/black_overlay"
+                android:shadowDx="3"
+                android:shadowDy="3"
+                android:shadowRadius="2"/>
 
             <TextView
                 android:id="@+id/textView3"
@@ -91,7 +99,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="70dp"
                 android:autoLink="web"
-                android:textColor="#ffffff"
+                android:textColorLink="#FFFFFF"
                 android:textSize="20sp" />
         </RelativeLayout>
     </ScrollView>
@@ -117,7 +125,7 @@
             android:onClick="zoomOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10px"
+            android:layout_marginLeft="20px"
             android:layout_toRightOf="@id/zoomIn"
             android:src="@drawable/zoomout" 
             android:background="@android:color/transparent"/>
