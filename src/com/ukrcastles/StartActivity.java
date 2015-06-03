@@ -26,6 +26,7 @@ public class StartActivity extends BaseActivity {
 	Button buttonPlaces;
 	String prefix;
 	ImageView image;
+	//ImageView logoSeeUa;
 	private static final int MAIN_MENU_ID = 1001;
 	private static final int ABOUT_MENU_ID = 1005;
 	private static final int APP_MENU_ID = 1010;
@@ -43,6 +44,7 @@ public class StartActivity extends BaseActivity {
 		buttonMap = (Button) findViewById(R.id.localmap);
 		buttonPlaces = (Button) findViewById(R.id.place);
 		image = (ImageView) findViewById(R.id.imageView1);
+		//logoSeeUa = (ImageView) findViewById(R.id.imageView2);
 		buttonMap.setText(getResources().getIdentifier(
 				"start_button_map" + prefix, "string", getPackageName()));
 		buttonPlaces.setText(getResources().getIdentifier(
@@ -51,6 +53,8 @@ public class StartActivity extends BaseActivity {
 		
         animation = AnimationUtils.loadAnimation(this, R.anim.animation);
         image.setAnimation(animation);
+
+		//logoSeeUa.setAlpha(200);
 	}
 
 	public void startPlace(View v) {
