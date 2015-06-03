@@ -119,7 +119,7 @@ public class MapActivity extends FragmentActivity {
 
 			mHandler.post(new Runnable() {
 				@SuppressLint("NewApi")
-				@SuppressWarnings({ "unchecked", "rawtypes" })
+				@SuppressWarnings({"unchecked", "rawtypes"})
 				public void run() {
 					try {
 						Thread.sleep(1000);
@@ -138,7 +138,7 @@ public class MapActivity extends FragmentActivity {
 						setMyLocation();
 					}
 					db = myDbHelper.getWritableDatabase();
-					Cursor c = db.query("info_data", new String[] { "*" },
+					Cursor c = db.query("info_data", new String[]{"*"},
 							null, null, null, null, null);
 
 					float distance;
@@ -151,8 +151,17 @@ public class MapActivity extends FragmentActivity {
 								c.getColumnIndex("name" + prefix)).replace(";",
 								",");
 						String description = c.getString(
-								c.getColumnIndex("description" + prefix))
-								.replace(";", ",");
+								c.getColumnIndex("description" + prefix));
+
+						if (description != null) {
+							description = description.replace(";", ",");
+						} else {
+							description = getString(getResources().getIdentifier(
+									"nodescription" + prefix, "string",
+									getPackageName()));
+							;
+						}
+
 						String image = c.getString(c.getColumnIndex("image"));
 
 						LatLng coord = new LatLng(Double
@@ -171,7 +180,7 @@ public class MapActivity extends FragmentActivity {
 						// coord.longitude), distance);
 
 						mapDist.put(coordinates + ";" + name + ";"
-								+ description + ";" + image + ";" + distance,
+										+ description + ";" + image + ";" + distance,
 								distance);
 					}
 
@@ -184,7 +193,7 @@ public class MapActivity extends FragmentActivity {
 					});
 
 					Map<String, Float> result = new LinkedHashMap<String, Float>();
-					for (Iterator it = list.iterator(); it.hasNext();) {
+					for (Iterator it = list.iterator(); it.hasNext(); ) {
 						Map.Entry<String, Float> entry = (Map.Entry) it.next();
 						result.put(entry.getKey(), entry.getValue());
 					}

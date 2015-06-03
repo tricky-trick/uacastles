@@ -201,6 +201,11 @@ public class InfoActivity extends BaseActivity implements MediaPlayerControl {
 			// buttonStop.setBackgroundResource(R.drawable.pause);
 
 			textTitle.setText(title);
+			if(description == null){
+				description = getString(getResources().getIdentifier(
+						"nodescription" + prefix, "string",
+						getPackageName()));
+			}
 			textDescription.setText(description + "\n\n");
 			textUri.setText(spanString);
 
